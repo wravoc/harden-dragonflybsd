@@ -216,8 +216,6 @@ The newly applied settings will not take affect until you reset your password.
 
 ## Setting Descriptors
 **Startup**
-* `kern_securelevel_enable = "YES"`
-    * Enable access to other than permanently insecure modes
 * `microcode_update_enable = "YES"`
     * Allow CPU microcode/firmware updates
 * Disable Sendmail
@@ -235,23 +233,6 @@ The newly applied settings will not take affect until you reset your password.
     * Disallow computer system details from being added to /etc/motd on system reboot
 
 **System**
-
-* `kern.securelevel = 1` [(*)](https://man.freebsd.org/cgi/man.cgi?securelevel)
-    * The system immutable and system append-only flags may
-	   not be turned off; disks for	mounted	file systems, /dev/mem and
-	   /dev/kmem may not be	opened for writing; /dev/io (if	your platform
-	   has it) may not be opened at	all; kernel modules (see kld(4)) may
-	   not be loaded or unloaded.  The kernel debugger may not be entered
-	   using the debug.kdb.enter sysctl.  A	panic or trap cannot be	forced
-	   using the debug.kdb.panic, debug.kdb.panic_str and other sysctl's.
-* `security.bsd.see_other_uids = 0`
-    * Disallow users from seeing information about processes that are being run by another user (UID)
-* `security.bsd.see_other_gids = 0` [(*)](https://docs.freebsd.org/en/books/handbook/mac/#mac-policies)
-    * Disallow users from seeing information about processes that are being run by another group (GID)
-* `security.bsd.see_jail_proc = 0` (Sysctl MIB Entry `sysctl -a | grep security.bsd`)
-    * Disallow non-root users from seeing processes in jail
-* `security.bsd.unprivileged_read_msgbuf = 0` (Sysctl MIB Entry `sysctl -a | grep security.bsd`)
-    * Disallow non-root users from reading system message buffer
 * `kern.randompid = 107` [(*)](https://wiki.freebsd.org/DevSummit/201308/Security)
     * Force kernel to randomize process ID's using above salt value instead of sequential
 * `net.inet.ip.random_id = 1`
@@ -289,6 +270,7 @@ The newly applied settings will not take affect until you reset your password.
     * 64bit is enabled by default in 13.2 so you can set this to 0 for 64bit processors or remove
 * `kern.elf32.aslr.pie_enable = "1"`
     * Enable ASLR for Position-Independent Executables (PIE) binaries
+* `kern.elf64.pie_base_mmap - "1"`
 
 
 
