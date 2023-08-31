@@ -216,6 +216,8 @@ The newly applied settings will not take affect until you reset your password.
 
 ## Setting Descriptors
 **Startup**
+* `kern_securelevel_enable = "YES"`
+    * Enable access to other than permanently insecure modes
 * `microcode_update_enable = "YES"`
     * Allow CPU microcode/firmware updates
 * Disable Sendmail
@@ -233,6 +235,15 @@ The newly applied settings will not take affect until you reset your password.
     * Disallow computer system details from being added to /etc/motd on system reboot
 
 **System**
+
+* `kern.securelevel = 1` [(*)](https://man.freebsd.org/cgi/man.cgi?securelevel)
+    * The system immutable and system append-only flags may
+	   not be turned off; disks for	mounted	file systems, /dev/mem and
+	   /dev/kmem may not be	opened for writing; /dev/io (if	your platform
+	   has it) may not be opened at	all; kernel modules (see kld(4)) may
+	   not be loaded or unloaded.  The kernel debugger may not be entered
+	   using the debug.kdb.enter sysctl.  A	panic or trap cannot be	forced
+	   using the debug.kdb.panic, debug.kdb.panic_str and other sysctl's.
 * `kern.randompid = 107` [(*)](https://wiki.freebsd.org/DevSummit/201308/Security)
     * Force kernel to randomize process ID's using above salt value instead of sequential
 * `net.inet.ip.random_id = 1`
