@@ -29,7 +29,7 @@ config = configparser.ConfigParser()
 config.read('settings.ini')
 
 
-harden_freebsd_log = Path("/var/log/harden-freebsd.log")
+harden_freebsd_log = Path("/var/log/harden-dragonflybsd.log")
 rc_conf = Path("/etc/rc.conf")
 sysctl_conf = Path("/etc/sysctl.conf")
 loader_conf = Path("/boot/loader.conf")
@@ -63,7 +63,7 @@ def exception_handler(func):
 
 
 
-# Write to either "syslog" (/var/log/messages) or "script" (/var/log/harden-freebsd.log)
+# Write to either "syslog" (/var/log/messages) or "script" (/var/log/harden-dragonflybsd.log)
 @exception_handler
 def writeLog(log_type, content):
     harden_freebsd_logwriter = open(harden_freebsd_log, "a")
