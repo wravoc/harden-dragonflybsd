@@ -1,5 +1,4 @@
-.nova/Configuration.json
-
+.nova/
 venv/
 .venv/
 *.pyc
@@ -25,4 +24,4 @@ config
 description
 cloneurl
 
-TODO
+TODO.md

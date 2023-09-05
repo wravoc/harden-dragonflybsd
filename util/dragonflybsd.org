@@ -1,0 +1,3 @@
+function: sha256
+fingerprint: 28 C0 F2 D9 D5 69 40 6C D4 1C 92 12 2C 6F 5A 47
+90 D6 40 5E FF 94 0B 23 2D CC AA 50 02 D2 E1 52

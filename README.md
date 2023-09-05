@@ -82,9 +82,12 @@ Each of the security settings was researched, assessed, and chosen as a set of m
 ## Addtional Software
 * Scripts included to verify the implementation 
     * Kernel vulnerablity diagnosis provided by [Stéphane Lesimple's](https://github.com/speed47) spectre-meltdown-checker
+        * `cd vendor`
         * `chmod 750 spectre-meltdown-checker.sh`
+        * `sudo ./spectre-meltdown-checker.sh`
         * You should only be left with the MCEPSC, Machine Check Exception on Page Size Change Vulnerability, [CVE-2018-12207](https://www.freebsd.org/security/advisories/FreeBSD-SA-19:25.mcepsc.asc)
     * MMAP, MProtect vulnerability diagnosis provided by [u/zabolekar](https://www.reddit.com/r/BSD/comments/10isrl3/notes_about_mmap_mprotect_and_wx_on_different_bsd/)
+        * `cd util`
         * `cc mmap_protect.c` 
         * `./a.out`
         * You should have two successes
@@ -107,6 +110,7 @@ Each of the security settings was researched, assessed, and chosen as a set of m
 
 
 ### Execute
+* `cd util`
 * `chmod 750 zenbleed-workaround.csh`
 * `sudo ./zenbleed-workaround.csh`
 
@@ -124,6 +128,7 @@ Each of the security settings was researched, assessed, and chosen as a set of m
 * Makes backups of `rc.conf`, `sysctl.conf`, `login.conf`, and `loader.conf` on first run
 * Sets passwords to blowfish encryption
 * Sets passwords to expire at 120 days
+* Sets default `umask` to 27 (USER all, GROUP rx, OTHER none)
 * Disables sendmail completely
 * Removes `other` write permissions from key system files and folders
 * Allows only root for `cron` and `at`
@@ -268,6 +273,8 @@ The newly applied settings will not take affect until you reset your password.
 
 
 **Kernel**
+* `pf_load = "YES"`
+    * Enable Firewall
 * `security.bsd.allow_destructive_dtrace = "0"`
     * Disallow DTrace to terminate proccesses
     * Test DTrace hardening: Using all 3 commands should result in `Permission denied` or `Destructive actions not allowed`:
