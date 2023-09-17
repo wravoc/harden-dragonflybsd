@@ -54,7 +54,7 @@ if ( $check_cpucontrol == "" ) then
             printf "cputctl_load="YES" added to /boot/loader.conf\n"
             printf "*******************************************************\n\n"
             printf "\033[38;5;9mReboot required to run script again.\033[0m \n"
-            exit 1
+            exit
             breaksw
         case 'y':
             printf "cpuctl_load=\"YES\"\n" >> /boot/loader.conf
@@ -62,14 +62,14 @@ if ( $check_cpucontrol == "" ) then
             printf "cputctl_load="YES" added to /boot/loader.conf\n"
             printf "*******************************************************\n\n"
             printf "\033[38;5;9mReboot required to run script again.\033[0m \n"
-            exit 1
+            exit
             breaksw
         case 'n':
             printf "Exiting...\n"
-            exit 1
+            exit
         case 'no':
             printf "Exiting...\n"
-            exit 1
+            exit
     endsw
 else
     printf "******************\033[38;5;76m CPUCONTROL Found \033[0m*******************\n"
@@ -124,7 +124,7 @@ else if ( $cpu_manufacturer == $AuthenticAMD ) then
 else    
     printf "Could not identify CPU\n"
     printf "Exiting...\n\n"
-    exit 1
+    exit
 endif
 
 
@@ -137,7 +137,7 @@ else
     printf "******************\033[38;5;9m AMD CPU Not Found \033[0;0m******************\n"
     printf "Exiting...\n"
     printf "*******************************************************\n\n"
-    exit 1
+    exit
 endif
 
 
@@ -196,7 +196,7 @@ if ( $amd_sysctl_check == "AMD" && "$amd_model" == "EPYC-Rome" ) then
             printf "After update you should remove update utilities\n"
             printf "Reboot, sudo zenbleed_workaround.csh clean, reboot\n"
             printf "*******************************************************\n\n"
-            exit 1
+            exit
             breaksw
         case 'y':
             echo cpu_microcode_load=\"YES\" >> /boot/loader.conf
@@ -218,14 +218,14 @@ if ( $amd_sysctl_check == "AMD" && "$amd_model" == "EPYC-Rome" ) then
             printf "After update you should remove update utilities\n"
             printf "Please reboot and run sudo zenbleed_workaround.csh clean\n"
             printf "*******************************************************\n\n"
-            exit 1
+            exit
             breaksw
         case 'n':
             printf "Exiting...\n"
-            exit 1
+            exit
         case 'no':
             printf "Exiting...\n"
-            exit 1
+            exit
     endsw
 else if ( $amd_sysctl_check == "AMD" && $zenbleeding == true ) then
     printf "********************\033[38;5;76m Zenbleed Found \033[0;0m*******************\n"
@@ -248,7 +248,7 @@ else if ( $amd_sysctl_check == "AMD" && $zenbleeding == true ) then
             printf "Workaround Activation \033[1mFailed\033[0m\n"
             printf "Please activate manually\n"
             printf "*******************************************************\n\n"
-            exit 1
+            exit
         endif
     printf "*********************\033[38;5;76m Reminder \033[0;0m************************\n"
     printf "Set a reminder to remove the workarond in December?\n"
@@ -264,7 +264,7 @@ else if ( $amd_sysctl_check == "AMD" && $zenbleeding == true ) then
             printf "*********************\033[38;5;76m Success \033[0;0m*************************\n"
             printf "at command set to create text file reminder 12/21/2023\n"
             printf "*******************************************************\n\n"
-            exit 1
+            exit
             breaksw
         case 'y':
             printf "at 1pm 12/21/2023<<ENDMARKER\n touch REMINDER-AMD-Zenbleed-Removal\nENDMARKER\n" > $HOME/zenbleed-at-reminder.sh
@@ -274,11 +274,11 @@ else if ( $amd_sysctl_check == "AMD" && $zenbleeding == true ) then
             printf "*********************\033[38;5;76m Success \033[0;0m*************************\n"
             printf "at command set to create text file reminder 12/21/2023\n"
             printf "*******************************************************\n\n"
-            exit 1
+            exit
             breaksw
         case 'n':
             printf "Exiting...\n"
-            exit 1
+            exit
         case 'no':
             printf "Exiting...\n"
             exit
@@ -288,13 +288,13 @@ else if ( $vm_check != "none") then
     printf "VM Hypervisors will not allow the ZenBleed workaround\n"
     printf "*******************************************************\n\n"
     printf "Exiting...\n\n"
-    exit 1
+    exit
 else   
     printf "*********************\033[38;5;76m Success \033[0;0m*************************\n"
     printf "No Zenbleed affected CPU found\n"
     printf "Exiting...\n"
     printf "*******************************************************\n\n"
-    exit 1
+    exit
 endif
 
 
@@ -314,7 +314,7 @@ clean:
             printf "Unable to remove conf directives. Manually remove.\n"
             printf "*******************************************************\n\n"
         endif
-    exit 1
+    exit
 
 
 remove:
@@ -334,5 +334,5 @@ remove:
     printf "*********************\033[38;5;76m Success \033[0;0m*************************\n"
     printf "Workaround removed and cpucontrol loading disabled\n"
     printf "*******************************************************\n\n"
-    exit 1
+    exit
 

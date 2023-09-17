@@ -130,6 +130,7 @@ Each of the security settings was researched, assessed, and chosen as a set of m
 * Sets passwords to expire at 120 days
 * Sets default `umask` to 27 (USER all, GROUP rx, OTHER none)
 * Disables sendmail completely
+* Installs and configures a Firewall
 * Removes `other` write permissions from key system files and folders
 * Allows only root for `cron` and `at`
 * Primitive flag verification catches simple errors
@@ -238,6 +239,8 @@ The newly applied settings will not take affect until you reset your password.
     * Disallow portmapping since Network File Systems is disallowed
 * `update_motd = "NO"`
     * Disallow computer system details from being added to /etc/motd on system reboot
+* `pflog_enable="YES"`
+    * Allow pf firewall logging to /var/log/pfllog
 
 **System**
 
