@@ -10,10 +10,7 @@
 
 # Setup pf firewall
 pkg update
-pkg install libressl
 cp /usr/local/etc/pkg/repos/df-latest.conf.sample /usr/local/etc/pkg/repos/df-latest.conf
-pkg update
-pkg install libressl
 set ext_if = `ifconfig -lu | awk '{ print $2 }'`
 sed -i .original 's/vio0/'${ext_if}'/g' pf.conf
 printf 'pf="YES"\n' >> /etc/rc.conf
@@ -26,7 +23,7 @@ cp pf.conf /etc
 
 
 # Setup Neovim + Post Reboot
-pkg install neovim git alacritty ion-shell  qutebrowser
+pkg install neovim git
 
 # Lazy.nvim NeoVIM
 cp -R ../vendor/lazy /usr/local/share/nvim/runtime

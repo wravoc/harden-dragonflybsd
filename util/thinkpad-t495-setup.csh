@@ -238,9 +238,8 @@ tar zxpf luarocks-3.9.2.tar.gz
 cd luarocks-3.9.2
 ./configure && make && sudo make install
 cp -fR ${SCRIPTDIRECTORY}/assets/awesome ~./config
-printf "startx" >> /etc/profile
 printf "\n***************$green  Setup complete  $end**********************\n"
-printf "Reboot and enjoy!\n"
+printf "Reboot, startx, and enjoy!\n"
 printf "*******************************************************\n\n"
 
 
