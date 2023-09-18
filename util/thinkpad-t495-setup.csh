@@ -77,6 +77,14 @@ set psk = $<
 sed -i .original 's/qhe-ssid/'${ssid}'/g' /etc/wpa_supplicant.conf
 sed -i .original 's/qhe-psk/'${psk}'/g' /etc/wpa_supplicant.conf
 
+# Install Basic Firewall
+cp /usr/local/etc/pkg/repos/df-latest.conf.sample /usr/local/etc/pkg/repos/df-latest.conf
+set ext_if = `ifconfig -lu | awk '{ print $2 }'`
+sed -i .original 's/vio0/'${ext_if}'/g' pf.conf
+printf 'pf="YES"\n' >> /etc/rc.conf
+printf 'pf_load-"YES"\n' >> /boot/loader.conf
+cp pf.conf /etc
+
 printf "\n**********************$green Success $end************************\n"
 printf "Reboot and re-run script to continue \n"
 printf "*******************************************************\n\n"
@@ -178,6 +186,8 @@ printf 'xhost si:localuser:'${USER}'' >> ~/.Xauthority
 # Install Xoerg Desktop
 printf 'kern.evdev.rcpt_mask=6\n' >> /etc/sysctl.conf
 printf 'dbus_enable="YES"\n' >> /etc/rc.conf
+printf 'hald_enable="YES"\n' >> /etc/rc.conf
+printf 'kld_list="radeonkms"\n' >> /etc/rc.conf
 pkg install -y xorg xf86-video-ati
 set pkgcheck = `pkg info xorg | grep -m1 Name | awk '{ print $3 }'`
 if ( $pkgcheck == "xorg" ) then
@@ -217,6 +227,8 @@ exit 0
 
 
 theme:
+printf "\n******************$blue Theme Install $end***********************\n"
+printf "*******************************************************\n\n"
 pkg install -y elementary-terminal gmake ohmyzsh claws-mail abiword gnupg
 cp /usr/local/share/ohmyzsh/templates/zshrc.zsh-template ~/.zshrc
 chsh -s zsh
@@ -227,5 +239,8 @@ cd luarocks-3.9.2
 ./configure && make && sudo make install
 cp -fR ${SCRIPTDIRECTORY}/assets/awesome ~./config
 printf "startx" >> /etc/profile
+printf "\n***************$green  Setup complete  $end**********************\n"
+printf "Reboot and enjoy!\n"
+printf "*******************************************************\n\n"
 
 

@@ -1,6 +1,6 @@
 # Harden DragonFly BSD 
 
-![](images/harden-dragonfly-logo.jpg)
+![](images/harden-dragonflybsd-preview.png)
 
 This security script utilizes years of security contributions by the entire BSD community across all spectra and decades of Professional Security Experience to implement what would take an experienced operator an hour or so to harden their system can be done in seconds with backups, logs, syntax checking, and Zenbleed workaround. 
 
@@ -11,23 +11,22 @@ Each of the security settings was researched, assessed, and chosen as a set of m
 
 ---
 
+## Main Features
 
-## Known Incompatibilities (Insecure) 08/25/2023
-* VM: 
-    * VirtualBox Shared Folders
-* **Workstation**: 
-    * **Firefox, Chromium** explicity use [shared memory](https://www.usna.edu/Users/cs/crabbe/SI411/current/security/memory.html) allowing data access between private and non-private windows, tabs as well as other currently running apps.
-        * Conflicts with `kern.elf64.allow_wx` 
-    * Linux Binary Compatibility
-* **Server**: Nginx
-
-
-## Verified Compatible
-* **Workstation**: 
-    * Librewolf, Qutebrowser, Transmission, Evolution, RhythmBox, VLC, Abiword, Gimp, Inkscape, Spacemacs, Git
-* **Server**: 
-    * Apache (w/o memcache), OpenSMTPD, MariaDB `have_dynamic_loading=YES` (with plugins)
-
+* Makes backups of `rc.conf`, `sysctl.conf`, `login.conf`, and `loader.conf` on first run
+* Sets passwords to blowfish encryption
+* Sets passwords to expire at 120 days
+* Sets default `umask` to 27 (USER all, GROUP rx, OTHER none)
+* Disables sendmail completely
+* Installs and configures a Firewall
+* Removes `other` write permissions from key system files and folders
+* Allows only root for `cron` and `at`
+* Primitive flag verification catches simple errors
+* Modularizable within other tools
+* Automate any shell script
+* System Logging to `/var/log/messages` and Script Logging to `/var/log/harden-dragonflybsd.log`
+* Pretty prints color output of script execution to console while running
+* Sets umask to 27
 
 ---
 
@@ -35,26 +34,6 @@ Each of the security settings was researched, assessed, and chosen as a set of m
 ## Includes
 * Desktop Wallpapers as a special gift to users of the Software
 * Directory (Hier)archy Visual Map, PDF, in /docs
-
----
-
-
-## FreeBSD Security Advisories
-### Remote denial of service in IPv6 fragment reassembly
-* `net.inet6.ip6.maxfrags = 0` [(*)](https://www.freebsd.org/security/advisories/FreeBSD-SA-23:06.ipv6.asc)
-    * **Official FreeBSD Security Advisory Workaround** 
-    * If using pf to scrub framents you do **not** need this workaround
-    * Add the directive above to `[SYSTEM} settings.ini` if not using pf scrub, and until you can safely patch the system
-    ```
-    root@freebsd:~# freebsd-update fetch
-    root@freebsd:~# freebsd-update install
-    root@freebsd:~# shutdown -r +10min "Rebooting for a security update"
-    ```
-### Downfall Intel CPU Vulnerability
-* https://downfall.page/
-    * Computing devices based on Intel Core processors from the 6th Skylake to (including) the 11th Tiger Lake generation are affected.
-    * [Vulnerability Checker](https://github.com/flowyroll/downfall/tree/main/POC/gds_spy)
-    * **Mitigation**: Intel Microcode Update Expected 
 
 
 ---
@@ -65,22 +44,16 @@ Each of the security settings was researched, assessed, and chosen as a set of m
 * CPU microcode updating enabled in anticipation of Zenbleed and Downfall Patches
 
 
-
-## August 11, 2023 Changelog
-* The rc script has been updated for better performance and stability 
-    * There is no positive value cases I can find for removing the chicken-bit during operation which on the contrary may produce unexpected results as with other workarounds of this type
-    * Rebooting without the rc script running returns the OS to an unset chicken-bit state which obviates the need to have a `rc` chicken-bit removal function. 
-        * The user chooses the workaround or not without the rc script making available CPU state changes while in operation possibly inducing kernel panics
-        * Simply using the `remove` argument and rebooting will return the AMD Zenbleed vulnerability -> MSR state to default
-* Fixed Syntax errors and word clarity in the main workaround file
-* Added a prompted reminder function using `at` to create a file in the home directory reminding the user to use the official patch due at that time and remove the workaround
-
-
 *Full [Changelog](Changelog.md)*
 
+---
 
 ## Addtional Software
+* Post-Install complete setup script for Thinkpad T495, T495s
+    * Configures WiFI, GPU, Sound, Keyboard, Custom Themed [Awesome](https://awesomewm.org/) Desktop 
+    * `sudo util/thinkpad-t495-setup.csh`
 * Scripts included to verify the implementation 
+**Run before and after the hardening.**
     * Kernel vulnerablity diagnosis provided by [Stéphane Lesimple's](https://github.com/speed47) spectre-meltdown-checker
         * `cd vendor`
         * `chmod 750 spectre-meltdown-checker.sh`
@@ -122,22 +95,6 @@ Each of the security settings was researched, assessed, and chosen as a set of m
 
 
 ---
-
-## Main Features
-
-* Makes backups of `rc.conf`, `sysctl.conf`, `login.conf`, and `loader.conf` on first run
-* Sets passwords to blowfish encryption
-* Sets passwords to expire at 120 days
-* Sets default `umask` to 27 (USER all, GROUP rx, OTHER none)
-* Disables sendmail completely
-* Installs and configures a Firewall
-* Removes `other` write permissions from key system files and folders
-* Allows only root for `cron` and `at`
-* Primitive flag verification catches simple errors
-* Modularizable within other tools
-* Automate any shell script
-* System Logging to `/var/log/messages` and Script Logging to `/var/log/harden-dragonflybsd.log`
-* Pretty prints color output of script execution to console while running
 
 
 ## Requirements
@@ -201,6 +158,8 @@ Those files are:
 
 The newly applied settings will not take affect until you reset your password.
 
+---
+
 ## Automatic Jail Lockdown/Management Strategies
 
 1. Set the correct paths to jailed confs in `harden-dragonflybsd.py` lines 32-38 and run for each jail.
@@ -239,8 +198,8 @@ The newly applied settings will not take affect until you reset your password.
     * Disallow portmapping since Network File Systems is disallowed
 * `update_motd = "NO"`
     * Disallow computer system details from being added to /etc/motd on system reboot
-* `pflog_enable="YES"`
-    * Allow pf firewall logging to /var/log/pfllog
+* `pf="YES"`
+    * Allow pf firewall
 
 **System**
 
@@ -266,13 +225,8 @@ The newly applied settings will not take affect until you reset your password.
     * Disallows TCP to determine the minimum MTU size on any network that is currently in the path between two hosts
 * `net.inet.icmp.drop_redirect = 1`
     * Pairs with rc.conf startup, as once enabled, it is then set
-* `hw.mds_disable = 3` [(*)](https://www.kernel.org/doc./html/latest/arch/x86/mds.html)
-    * Enable Microarchitectural Data Sampling Mitigation version `VERW`
-    * Change value to `3` (AUTO) if using a Hypervisor without MDS Patch
-* `hw.spec_store_bypass_disable = 1` [(*)](https://handwiki.org/wiki/Speculative_Store_Bypass)
-    * Disallow Speculative Bypass used by Spectre and Meltdown
-* `kern.elf64.allow_wx = 0` [(*)](https://www.ibm.com/docs/en/aix/7.2?topic=memory-understanding-mapping)
-    * Disallow write and execute for shared memory
+* `kern.chroot_allow_open_directories = 0`
+    * Disallow a process to chroot if it has a directory open
 
 
 **Kernel**
