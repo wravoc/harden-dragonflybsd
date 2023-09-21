@@ -50,8 +50,16 @@ Each of the security settings was researched, assessed, and chosen as a set of m
 
 ## Addtional Software
 * Post-Install complete setup script for Thinkpad T495, T495s
-    * Configures WiFI, GPU, Sound, Keyboard, Custom Themed [Awesome](https://awesomewm.org/) Desktop 
+    * Configures WiFI, GPU, Sound, Keyboard, Custom Themed [Awesome](https://awesomewm.org/) Desktop
+    * Elementary Terminal, Lazy NeoVIM, Ghostwriter+Pandoc, Claws Email Client, Firefox
     * `sudo util/thinkpad-t495-setup.csh`
+* Z Shell function/alias/macro for Previewing Markdown files in Firefox `mdp <file.md>`
+    * Modify in `~/.zshrc`
+* Shell Script to present available sensor information like Battery Life, CPU Temp, HDD Status
+    * `vendor/sensors.sh`
+    * Script by vermaden@interia.pl https://vermaden.wordpress.com 
+    * Copyright (c) 2022-2023 Slawomir Wojciech Wojtczak (vermaden)
+    * Copyright (c) 2022 Trix Farrar
 * Scripts included to verify the implementation 
 **Run before and after the hardening.**
     * Kernel vulnerablity diagnosis provided by [Stéphane Lesimple's](https://github.com/speed47) spectre-meltdown-checker

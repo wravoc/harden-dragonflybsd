@@ -23,7 +23,7 @@ cp pf.conf /etc
 
 
 # Setup Neovim + Post Reboot
-pkg install neovim git
+pkg install neovim git nerd-fonts font-awesome
 
 # Lazy.nvim NeoVIM
 cp -R ../vendor/lazy /usr/local/share/nvim/runtime
@@ -35,7 +35,7 @@ cp ../assets/init.lua ~/.config/nvim/
 # Logout of Awesome: Shift-Windows Keys(Mod)-Q, Ctl-Alt-Del
 # "Font Awesome 6 Free" "Font Awesome 6 Free Solid"
 sed -i .original 's/vi/nvim/g' ~/.cshrc
-pkg install nerd-fonts font-awesome
+
 
 # Librewolf
 # wget https://gitlab.com/librewolf-community/browser/source/-/archive/117.0-1/source-117.0-1.tar -o Librewolf

@@ -84,6 +84,7 @@ sed -i .original 's/vio0/'${ext_if}'/g' pf.conf
 printf 'pf="YES"\n' >> /etc/rc.conf
 printf 'pf_load-"YES"\n' >> /boot/loader.conf
 cp pf.conf /etc
+cat ${SCRIPTDIRECTORY}/assets/denyhosts >> /etc/hosts
 
 printf "\n**********************$green Success $end************************\n"
 printf "Reboot and re-run script to continue \n"
@@ -155,7 +156,7 @@ printf "*******************************************************\n\n"
 ## TODO: Fix Power Meter, Set wallpaper
 printf "\n*******************$blue Desktop Set $end************************\n"
 printf "*******************************************************\n\n"
-pw groupmod video -m ${USER}
+pw groupmod video wheel -m ${USER}
 
 # Setup XDG environment
 setenv XDG_RUNTIME_DIR /var/run/${USER}-runtime
@@ -183,7 +184,7 @@ chmod 700 ~/.Xauthority
 printf 'xhost si:localuser:'${USER}'' >> ~/.Xauthority
 
 
-# Install Xoerg Desktop
+# Install Xorg Desktop
 printf 'kern.evdev.rcpt_mask=6\n' >> /etc/sysctl.conf
 printf 'dbus_enable="YES"\n' >> /etc/rc.conf
 printf 'hald_enable="YES"\n' >> /etc/rc.conf
@@ -229,7 +230,9 @@ exit 0
 theme:
 printf "\n******************$blue Theme Install $end***********************\n"
 printf "*******************************************************\n\n"
-pkg install -y elementary-terminal gmake ohmyzsh claws-mail abiword gnupg
+
+# Setup AwesomeWM 
+pkg install -y elementary-terminal gmake ohmyzsh claws-mail abiword hs-pandoc gnupg
 cp /usr/local/share/ohmyzsh/templates/zshrc.zsh-template ~/.zshrc
 chsh -s zsh
 gsettings set io.elementary.terminal.settings font 'Monoid Nerd Font 12'
@@ -238,6 +241,44 @@ tar zxpf luarocks-3.9.2.tar.gz
 cd luarocks-3.9.2
 ./configure && make && sudo make install
 cp -fR ${SCRIPTDIRECTORY}/assets/awesome ~./config
+cp -fR ${SCRIPTDIRECTORY}/assets/fonts.conf /usr/local/etc/X11/xorg.conf.d/
+cp -fR ${SCRIPTDIRECTORY}/assets/40-trackpoint.conf /usr/local/etc/X11/xorg.conf.d/
+sed -i .original 's/^default.*/& \n\t:charset=UTF-8:\\/' /etc/login.conf
+sed -i .original 's/^default.*/& \n\t:lang=en_US.UTF-8:\/' /etc/login.conf
+
+# Setup NeoVIM
+cd
+pkg install -y neovim git nerd-fonts font-awesome ripgrep fdfind lazygit unzip gzip
+git clone https://github.com/LazyVim/starter ~/.config/nvim
+rm -rf ~/.config/nvim/.git
+cd
+sed -i .original 's/mvim/nvim/g' ~/.zshrc
+
+# Setup z shell alias to preview Markdown files in Firefox
+pkg install -y npm-node18-9.5.0
+npm install -g markdown-toc
+cat ${SCRIPTDIRECTORY}/assets/mdp.zsh >> ~./zshrc
+cp ${SCRIPTDIRECTORY}/assets/qhe-markdown.html /usr/local/share/pandoc/data/templates/
+
+
+# Fix LazyVim
+cd ~/.local/share/nvim/lazy/nvim/nvim-treesiter
+git config --system core.longpaths true
+git restore --source=HEAD :/
+git pull
+cd
+
+# Clean Up
+printf "\n*****************$green  Cleaning Up  $end***********************\n"
+printf "Pkg system check, clean, audit\n"
+printf "*******************************************************\n\n"
+pkg check -Bda
+pkg autoremove
+pkg clean
+pkg audit -Fr
+
+
+# End
 printf "\n***************$green  Setup complete  $end**********************\n"
 printf "Reboot, startx, and enjoy!\n"
 printf "*******************************************************\n\n"
