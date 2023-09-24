@@ -52,7 +52,11 @@ Each of the security settings was researched, assessed, and chosen as a set of m
 * Post-Install complete setup script for Thinkpad T495, T495s
     * Configures WiFI, GPU, Sound, Keyboard, Custom Themed [Awesome](https://awesomewm.org/) Desktop
     * Elementary Terminal, Lazy NeoVIM, Ghostwriter+Pandoc, Claws Email Client, Firefox
-    * `sudo util/thinkpad-t495-setup.csh`
+    * Download and install to FAT32 formatted USB Drive, Insert after install is complete, make a user account for yourself
+    * `mount_msdos /dev/da8s1 mnt`, `cp -fR /mnt/harden-dragonflybsd ~`
+    * `cd harden-dragonflybsd`
+    * `util/thinkpad-t495-setup.csh`
+    * Do NOT run as root for the Desktop Setup! `sudo util/thinkpad-t495-setup.csh`
 * Z Shell function/alias/macro for Previewing Markdown files in Firefox `mdp <file.md>`
     * Modify in `~/.zshrc`
 * Shell Script to present available sensor information like Battery Life, CPU Temp, HDD Status

@@ -49,7 +49,7 @@ beautiful.init("~/.config/awesome/themes/qhe/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "io.elementary.terminal"
-editor = os.getenv("EDITOR") or "ee"
+editor = os.getenv("EDITOR") or "nano"
 editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
