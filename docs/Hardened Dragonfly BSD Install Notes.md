@@ -2,17 +2,21 @@
 
 ### DragonlyBSD Install Notes
 
+* You need two FAT32 formatted USB drives, one for the install, the other for this software
+  * You can use BalenaEtcher to make your install drive
+  * When copying to and from the USB drives `/mnt` make sure to `cp` overwrite with `cp -fR /mnt/harden-dragonflybsd $HOME`
+* Use your FAT32 USB drive `mount_msdos /dev/da8s1 /mnt` , `ls /mnt`
 * Yes, the reboots are needed to boot the new pkg into the kernel for smoothest operation!
-
 * `Fn-K` allows to arrow and PgUp PgDown the console screen. Then `Fn-K` again to release.
-
 * Make sure to "Configure this System"
+* Set the time, date, and say yes to UTC clock, set your timezone.
+* Skip keyboard map, console font, and screen map
 * Add yourself as user during setup with permanent accurate information
+  * Fill in the first 4 rows
 * Do **NOT** "Configure network interfaces"
 * Enter "Set Hostname/Domain"
   * Hostname is your nickname, no special characters, not starting with a number
   * Domain is `localhost`
-  * Skip keyboard map, console font, and screen map
   * Return to Main Menu, Reboot This Computer
   * Do **NOT** pull out the installation USB drive until "The operating system has halted"
   * Login as root, insert the FAT32 formatted USB drive with this software.
@@ -20,16 +24,20 @@
   * `cp -fR /mnt/harden-dragonflybsd ~`
   * `cd harden-dragonflybsd`
   * `util/thinkpad-t495-setup.csh` , after Success, issue the `reboot` command
+  * There are some pkg bugs in DF, if the software `pkg` management systems asks to upgrade or fix missing dependencies then select `y`
+    * You may end up running the script twice after an error, this is unfortunately expected
 * **Phase 2 setup**
 * When you see this message, after the pkg system if fixed and Phase 2 message appears
-  * You must continue installing the script as a non-root user who will use the desktop
+  * You must continue running the script until completion as a non-root user who will use the desktop
   * Run this command: `visudo`
   * We are in VI editor. VI command for search is `/`
   * Type `/root ALL <enter key>` then type `o`, then we're going replicate the line above but instead of using `root` we'll use our actual username you made during setup
   * `your-user-name ALL=(ALL:ALL) ALL`
   * Reboot, login with your username, not root and re-run script to continue setup
-    * `sudo cp -R /root/harden-dragonflybsd ~`
-    * `sudo util/thinkpad-t495-setup.csh` Enter your password, not root password.
+    * `sudo cp -R /root/harden-dragonflybsd /home/<your-user-name>`
+    * `sudo chown -R <your-user-name> /home/<your-user-name>/harden-dragonflybsd`
+  * Reboot and run the script again from the base directory but use `sudo`
+    * `sudo util/thinkpad-t495-setup.csh` Enter your password, not the root password.
   * From now on you'll need to `sudo reboot` `sudo shutdown -p now`
 
 ### Awesome Window Manger (AwesomeWM)
@@ -52,21 +60,28 @@
 
 ### System Tools
 
-* Use your FAT32 USB drive `mount_msdos /dev/da8s1 /mnt` , `ls /mnt`
+* Pre-Installed Languages
+  * NPM + NodeJS
 
-* Enhanced file and directory [find](https://github.com/sharkdp/fd) `fd`
-  * Defaults to find recursively in the current directory, ignoring dot files.
-    * Fix in the OhMyZsh section.
-  * `fd searchstring /` to search the whole drive.
-* [Enhanced  grep](https://github.com/BurntSushi/ripgrep) `rg`
-  * Find recursively in the current directory. `rg searchstring /` to search the whole drive.
-* Rust Language `cargo` on `PATH`
-* Quadhelion Engineering Dragonfly Status Dashboard `dfs`
-  * Alias to zsh script that print in terminal:
+  * Rust
+
+  * Luarocks
+
+* Enhanced Command Lines Tools
+  * Enhanced file and directory [find](https://github.com/sharkdp/fd) `fd`
+    * Custom `alias` added to your `.zshrc` to not ignore dot files
+    * `fd <searchstring> /` to search the whole drive.
+
+  * [Enhanced  grep](https://github.com/BurntSushi/ripgrep) `rg`
+    * Find text in files recursively in the current directory. `rg <searchstring> /` to search the whole drive.
+
+* Rust Language `$HOME/.cargo/bin` added to your user `PATH`
+* **Quadhelion Engineering Dragonfly Status Dashboard**
+  * Just type `dfs` in your shell
     * WiFi Status
     * Current Internet IP Address sourced from the [envs.net](https://envs.net/)
     * Current DNS Server
-    * Power type, either from 120v power adapter or from the laptop battery
+    * Power type, either from 120v power *adapter* or from the laptop *battery*
     * Battery percentage
       * Alerts with two system beeps and warning icon with less than 10%
 
@@ -121,15 +136,20 @@
 
 * Of the dozens of clients available very few still work, `irssi` and `iris-fish`(encryption module) are tested as working
 
-### Markdown Preview Shell Function `mdp`
+### Quadhelion Engineering Markdown Preview Shell Function
 
-Preview Markdown files in Firefox with auto-generated Table of Contents for faster review
-Usage: 
+*Preview Markdown files in as they would appear in GitHub (with a QHE provided template) in Firefox with auto-generated Table of Contents for faster review*. 
+
+Simply type `mdp` in your shell
+
+**Usage:** 
 `mdp README.md`
 
 #### Customization
 
-File `~/.zshrc`
+Gives you an HTML copy of your markdown file as well. You can have the `mdp` function remove this file by editing the function.
+
+**File**: `~/.zshrc`
 
 Append the following line at the end of function to delete HTML preview file: 
 `rm ${filepath}/${basename_toc}.html`
@@ -143,8 +163,8 @@ Append the following line at the end of function to delete Markdown with Table o
 
 #### Markdown Format
 
-Function uses [MultiMarkdown format](https://fletcherpenney.net/multimarkdown/) `markdown_mmd` which can be changed although this format was heavily tested to be the best:
-https://pandoc.org/chunkedhtml-demo/8.22-markdown-variants.html#markdown-variants
+QHE `mdp` z shell function uses [MultiMarkdown format](https://fletcherpenney.net/multimarkdown/) `markdown_mmd` which can be [changed](https://pandoc.org/chunkedhtml-demo/8.22-markdown-variants.html#markdown-variants) although this format was heavily tested to be the best:
+
 
 **Table of Contents Insertion and Format**
 `--maxdepth` is set to only recognize` ##` markdown headings `2` but the default is `6`, all subheadings.
@@ -154,4 +174,7 @@ and insert <!-- toc --> inside your markdown document where you would like it to
 
 All changes in this function will not appear until you've exited the terminal and restarted it
 
-The pandoc export uses a custom template by Quadhelion Engineering and Fabrizio Musacchio (https://www.fabriziomusacchio.com) to mimic GitHub Markdown and can be modified however you wish.
+The pandoc custom template by Quadhelion Engineering and [Fabrizio Musacchio](https://www.fabriziomusacchio.com) mimicing GitHub Markdown can be modified however you wish.
+
+* /usr/local/share/pandoc/data/templates/qhe-markdown.html
+
