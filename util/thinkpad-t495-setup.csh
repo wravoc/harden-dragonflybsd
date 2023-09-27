@@ -272,7 +272,7 @@ cp -fR ${SCRIPTDIRECTORY}/util/dfs.sh $SUDO_USER_HOME
 
 # Set UTF for all users
 sed -i .original 's/^default.*/& \n\t:charset=UTF-8:\\/' /etc/login.conf
-sed -i .original 's/^default.*/& \n\t:lang=en_US.UTF-8:\/' /etc/login.conf
+sed -i .original2 's/^default.*/& \n\t:lang=en_US.UTF-8:\\/' /etc/login.conf
 cap_mkdb /etc/login.conf
 
 # Setup NeoVIM
@@ -282,6 +282,8 @@ rm -rf $SUDO_USER_HOME/.local/share/nvim/lazy/nvim-treesitter
 rm $SUDO_USER_HOME/.local/share/nvim/lazy/nvim-treesitter.cloning
 git clone https://github.com/nvim-treesitter/nvim-treesitter.git $SUDO_USER_HOME/.local/share/nvim/lazy/nvim-treesitter
 sed -i .original 's/mvim/nvim/g' $SUDO_USER_HOME/.zshrc
+sed -i .original 's/fzf/fzy/g' $SUDO_USER_HOME/.config/nvim/lua/plugins/telescope.lua
+sed -i .original2 's/make/cmake/g' $SUDO_USER_HOME/.config/nvim/lua/plugins/telescope.lua
 
 # Setup z shell function & alias to preview Markdown files in Firefox and run Dragonfly Status Script
 pkg install -y npm rust firefox libuv libnghttp2
@@ -293,6 +295,7 @@ printf 'alias fd="fd -H"\n' >> $SUDO_USER_HOME/.zshrc
 cat ${SCRIPTDIRECTORY}/assets/mdp.zsh >> $SUDO_USER_HOME/.zshrc
 cp ${SCRIPTDIRECTORY}/assets/qhe-markdown.html /usr/local/share/pandoc/data/templates/
 sed -i .original 's/\/bin\/tcsh/\/usr\/local\/bin\/zsh/g' /etc/passwd
+printf "\n export LANG=en_US.UTF-8 \n" >> $SUDO_USER_HOME/.zshrc
 chsh -s zsh $SUDO_USER
 
 

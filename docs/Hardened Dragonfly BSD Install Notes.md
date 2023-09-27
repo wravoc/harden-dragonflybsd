@@ -47,6 +47,11 @@
 
 ### Awesome Window Manger (AwesomeWM)
 
+* Type `startx` to start your desktop
+  * Ignore the .Xauthority at first run, this is normal
+  * Ignore the .serverauth file does not exist this is normal.
+    * Delete them all regularly or 
+
 * When the terminal starts type `gsettings set io.elementary.terminal.settings font 'Monoid Nerd Font 12'` to match the rest of the theme or whatever Nerd Font you'd like.
 
 * Rarely, the trackpoint will get stuck, simply issue a `reboot` command.
@@ -134,17 +139,18 @@
 
 ### AstroNvim [*](https://astronvim.com/)
 
-* `nvim` let is setup, update, then quit `:q!`
-* Fix Treesitter cloning error:
+* Use`nvim` command with no file to let it setup, update, then quit `:q!`
+* If Treesitter cloning error:
   * `cd ~/.local/share/nvim/lazy/`
   * `rm -rf nvim-treesitter`
   * `git clone https://github.com/nvim-treesitter/nvim-treesitter.git`
 * The Dragonfly versions avaible to build with do not properly render some of the Nerd Fonts.
-* Update `~/.config/nvim/lua/plugins/telescope.lua` to change the `fzf` in `telescope-fzf-native.nvim` to `fzy` and the `vim.fn.executeable` from `make` to `cmake`
+* 
 * Update `:AstroUpdatePackages`
 * Add a language `:TSInstall ruby`
 * Plug-In directory is` ~/.local/share/nvim/lazy`
 * Install new language  `:TSInstall rust`
+* Update `~/.config/nvim/lua/plugins/telescope.lua` to change the `fzf` in `telescope-fzf-native.nvim` to `fzy` instead of `fzf` and the `vim.fn.executeable` from `make` to `cmake` for both fields
 
 ### IRC Client
 
