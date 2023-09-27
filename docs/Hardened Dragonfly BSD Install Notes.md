@@ -4,9 +4,11 @@
 
 * You need two FAT32 formatted USB drives, one for the install, the other for this software
   * You can use BalenaEtcher to make your install drive
-  * When copying to and from the USB drives `/mnt` make sure to `cp` overwrite with `cp -fR /mnt/harden-dragonflybsd $HOME`
+  * When copying to and from *USB drives* `/mnt` make sure to `cp` *overwrite* with `cp -fR /mnt/harden-dragonflybsd $HOME`
 * Use your FAT32 USB drive `mount_msdos /dev/da8s1 /mnt` , `ls /mnt`
-* Yes, the reboots are needed to boot the new pkg into the kernel for smoothest operation!
+* `cp -fR /mnt/harden-dragonflybsd $HOME` the files to root home, using `-f` here to get into the habit.
+* Yes, the reboot stratgey is best on a physical laptop! Booting the kernel modules for smoothest operation, for pkg update purposes, and to be in habit, and ready, or already done `kern.securelevel=1`! This will not be needed after setup.
+* Always run the script from the repository base directory. Do not go until `util` and run it from there.
 * `Fn-K` allows to arrow and PgUp PgDown the console screen. Then `Fn-K` again to release.
 * Make sure to "Configure this System"
 * Set the time, date, and say yes to UTC clock, set your timezone.
@@ -27,28 +29,31 @@
   * There are some pkg bugs in DF, if the software `pkg` management systems asks to upgrade or fix missing dependencies then select `y`
     * You may end up running the script twice after an error, this is unfortunately expected
 * **Phase 2 setup**
-* When you see this message, after the pkg system if fixed and Phase 2 message appears
-  * You must continue running the script until completion as a non-root user who will use the desktop
+* When you see this message do the following before rebooting:
   * Run this command: `visudo`
-  * We are in VI editor. VI command for search is `/`
-  * Type `/root ALL <enter key>` then type `o`, then we're going replicate the line above but instead of using `root` we'll use our actual username you made during setup
+  * That will launch the VI editor. VI command for search is `/`
+  * Type `/root ALL` <enter|returrn key>, then type `o`, then we're going replicate the line above but instead of using `root` we'll use the actual username you made during setup
   * `your-user-name ALL=(ALL:ALL) ALL`
-  * Reboot, login with your username, not root and re-run script to continue setup
-    * `sudo cp -R /root/harden-dragonflybsd /home/<your-user-name>`
+  * Quit and Write the changes at the same time by typing  `:x`
+  * Copy this software from root to your user
+    * `sudo cp -fR /root/harden-dragonflybsd /home/<your-user-name>`
     * `sudo chown -R <your-user-name> /home/<your-user-name>/harden-dragonflybsd`
-  * Reboot and run the script again from the base directory but use `sudo`
-    * `sudo util/thinkpad-t495-setup.csh` Enter your password, not the root password.
-  * From now on you'll need to `sudo reboot` `sudo shutdown -p now`
+  * Reboot, login with your username, not root, and re-run script to continue setup
+  * Run the script again from the repository base directory but use `sudo`
+    * `sudo util/thinkpad-t495-setup.csh` Enter your password, not the root password for sudo permissions.
+  * From now on you'll need to `sudo util/thinkpad-t495-setup.csh`,  `sudo reboot` , `sudo shutdown -p now`
+  * If anything went wrong, just keep running the script!
+    * Dragonfly has quirks in the `pkg` system in 6.4 and it will sometimes conflict on openssl - libressl and sometimes will delete everything that depends on them automatically! Do not worry, just run the script again to fix this situation.
 
 ### Awesome Window Manger (AwesomeWM)
 
-* **Do NOT run the desktop portion of the installer as root!** `sudo thinkpad-t495-setup.csh`
+* When the terminal starts type `gsettings set io.elementary.terminal.settings font 'Monoid Nerd Font 12'` to match the rest of the theme or whatever Nerd Font you'd like.
 
 * Rarely, the trackpoint will get stuck, simply issue a `reboot` command.
 
 * Windows Key on the keyboard is called the "Mod" key
 * Quit a Window `Mod-Shift-C`
-* `Mod-R` Start any application
+* `Mod-R` Start any application, "Run" appears in the top system bar, type the full path to the binary or simply the app name if it's in system path already.
 * Terminal Command: `io.elementary.terminal`
 * Shutdown `shutdown -p now` command in terminal
 * Crash Restart: `Mod-Shift-Q`, `Ctrl-Alt-Backspace` wait 7 seconds, `Ctrl-Alt-Delete`
@@ -57,13 +62,15 @@
 
 * For security and privacy, the network settings have been changed to block the 110+ servers that Mozilla  uses to track browser activity. 
 * It is recommended for the user the setup [NextDNS](https://my.nextdns.io/start) Security to remove ads and malware, not uBlockOrigin.
-* Settings required in the URL `about:config`
+* **Settings required in the URL** `about:config` **on first run!**
+* %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+* **<<<Firefox will render itself inoperative if you do not set these on first run!>>>**
+* %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   * intl.regional_prefs.use_os_locales `true`
-  * Services.sync.prefs.sync.intl.regional._prefs.use_os_locates `false`
+  * services.sync.prefs.sync.intl.regional._prefs.use_os_locates `false`
   * dom.push.connection.enabled `false`
   * dom.push.enabled `false`
   * geo.enabled `false`
-
 
 ### System Tools
 

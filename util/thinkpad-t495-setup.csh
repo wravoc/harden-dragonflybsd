@@ -20,6 +20,7 @@ set blue = '\033[1;34m'
 set magenta = '\033[1;35m'
 set cyan = '\033[1;36m'
 set white = '\033[0;37m'
+set red = '\033[1;31m'
 set end = '\033[0m'
 
 # Environment variables
@@ -71,7 +72,7 @@ else if ( -e /usr/local/libexec/libinput ) then
     goto theme
 else
     printf "\n********************$blue Base Mode $end************************\n"
-    printf "$yellow--$end     Thinkpad T495 Setup for Dragonfly BSD 6.4     $yellow--$end \n"
+    printf "$red--$end     Thinkpad T495 Setup for Dragonfly BSD 6.4     $red--$end \n"
     printf "*******************************************************\n\n"
 endif
 
@@ -142,12 +143,12 @@ printf "\n*********************$blue Repo Reset $end**********************\n"
 printf "*******************************************************\n\n"
 sleep 2
 pkg install -y wget curl sudo python nghttp2
-sleep 2
+sleep 10
+pkg install -y wget curl sudo python nghttp2
 set wget_check = `pkg info wget | grep -m1 Name | awk '{ print $3 }'`
 echo
 echo
-pkg check -Bda
-sleep 2
+sleep 1
 if ( $wget_check == "wget" ) then
     printf "\n**********************$green Success $end***********************\n"
     printf "Package system fixed\n"
@@ -283,7 +284,7 @@ git clone https://github.com/nvim-treesitter/nvim-treesitter.git $SUDO_USER_HOME
 sed -i .original 's/mvim/nvim/g' $SUDO_USER_HOME/.zshrc
 
 # Setup z shell function & alias to preview Markdown files in Firefox and run Dragonfly Status Script
-pkg install -y npm rust firefox
+pkg install -y npm rust firefox libuv libnghttp2
 npm install -g markdown-toc
 printf 'PATH=$PATH:${SUDO_USER_HOME}/.cargo/bin; export PATH\n' >> $SUDO_USER_HOME/.profile
 cargo install fzyr
@@ -293,7 +294,7 @@ cat ${SCRIPTDIRECTORY}/assets/mdp.zsh >> $SUDO_USER_HOME/.zshrc
 cp ${SCRIPTDIRECTORY}/assets/qhe-markdown.html /usr/local/share/pandoc/data/templates/
 sed -i .original 's/\/bin\/tcsh/\/usr\/local\/bin\/zsh/g' /etc/passwd
 chsh -s zsh $SUDO_USER
-gsettings set io.elementary.terminal.settings font 'Monoid Nerd Font 12'
+
 
 
 # Clean Up
@@ -312,9 +313,11 @@ chown $SUDO_USER /usr/local/share/pandoc/data/templates
 chown -R $SUDO_USER $SUDO_USER_HOME/.config
 chown $SUDO_USER /var/run/${SUDO_USER}-runtime
 chown -R $SUDO_USER $SUDO_USER_HOME/harden-dragonflybsd
+chown -R $SUDO_USER $SUDO_USER_HOME/.local
 chmod 750 $SUDO_USER_HOME/.xinitrc
 chmod -R 740 $SUDO_USER_HOME/harden-dragonflybsd
 chmod 750 $SUDO_USER_HOME/dfs.sh
+gsettings set io.elementary.terminal.settings font 'Monoid Nerd Font 12'
 
 
 # Pkg system clean
