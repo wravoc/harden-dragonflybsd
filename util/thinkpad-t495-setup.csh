@@ -135,6 +135,8 @@ printf "*******************************************************\n\n"
 pkg upgrade
 sleep 2
 cp /usr/local/etc/pkg/repos/df-latest.conf.sample /usr/local/etc/pkg/repos/df-latest.conf
+echo
+echo
 pkg check -Bda
 printf "\n*********************$blue Repo Reset $end**********************\n"
 printf "*******************************************************\n\n"
@@ -142,8 +144,10 @@ sleep 2
 pkg install -y wget curl sudo python nghttp2
 sleep 2
 set wget_check = `pkg info wget | grep -m1 Name | awk '{ print $3 }'`
+echo
+echo
 pkg check -Bda
-sleep 6
+sleep 2
 if ( $wget_check == "wget" ) then
     printf "\n**********************$green Success $end***********************\n"
     printf "Package system fixed\n"
@@ -221,6 +225,7 @@ exit 0
 # Themes in /usr/local/share/awesome/themes
 xorgfix:
 pw groupmod wheel -m ${SUDO_USER}
+pw groupmod staff -m ${SUDO_USER}
 pw groupmod video -m ${SUDO_USER}
 mkdir -p $SUDO_USER_HOME/.config/awesome
 printf "\n*******************$blue Desktop Fix $end***********************\n"
@@ -249,7 +254,6 @@ printf "*******************************************************\n\n"
 # Setup AwesomeWM 
 pkg install -y awesome elementary-terminal ohmyzsh claws-mail abiword hs-pandoc gnupg neofetch gmake
 cp /usr/local/share/ohmyzsh/templates/zshrc.zsh-template $SUDO_USER_HOME/.zshrc
-gsettings set io.elementary.terminal.settings font 'Monoid Nerd Font 12'
 wget -P $SUDO_USER_HOME https://luarocks.org/releases/luarocks-3.9.2.tar.gz
 cd $SUDO_USER_HOME
 tar zxpf luarocks-3.9.2.tar.gz -C $SUDO_USER_HOME
@@ -265,23 +269,31 @@ cp -fR ${SCRIPTDIRECTORY}/assets/fonts.conf /usr/local/etc/X11/xorg.conf.d/
 cp -fR ${SCRIPTDIRECTORY}/assets/40-trackpoint.conf /usr/local/etc/X11/xorg.conf.d/
 cp -fR ${SCRIPTDIRECTORY}/util/dfs.sh $SUDO_USER_HOME
 
+# Set UTF for all users
+sed -i .original 's/^default.*/& \n\t:charset=UTF-8:\\/' /etc/login.conf
+sed -i .original 's/^default.*/& \n\t:lang=en_US.UTF-8:\/' /etc/login.conf
+cap_mkdb /etc/login.conf
 
 # Setup NeoVIM
 pkg install -y neovim git nerd-fonts font-awesome ripgrep fd-find lazygit unzip gzip fzy
 git clone --depth 1 https://github.com/AstroNvim/AstroNvim $SUDO_USER_HOME/.config/nvim
-
+rm -rf $SUDO_USER_HOME/.local/share/nvim/lazy/nvim-treesitter
+rm $SUDO_USER_HOME/.local/share/nvim/lazy/nvim-treesitter.cloning
+git clone https://github.com/nvim-treesitter/nvim-treesitter.git $SUDO_USER_HOME/.local/share/nvim/lazy/nvim-treesitter
 sed -i .original 's/mvim/nvim/g' $SUDO_USER_HOME/.zshrc
 
 # Setup z shell function & alias to preview Markdown files in Firefox and run Dragonfly Status Script
-pkg install -y npm libuv libnghttp2 rust firefox
+pkg install -y npm rust firefox
 npm install -g markdown-toc
 printf 'PATH=$PATH:${SUDO_USER_HOME}/.cargo/bin; export PATH\n' >> $SUDO_USER_HOME/.profile
 cargo install fzyr
-printf 'alias dfs="dfs.sh"\n' >> $SUDO_USER_HOME/.zshrc
+printf 'alias dfs="~/dfs.sh"\n' >> $SUDO_USER_HOME/.zshrc
 printf 'alias fd="fd -H"\n' >> $SUDO_USER_HOME/.zshrc 
 cat ${SCRIPTDIRECTORY}/assets/mdp.zsh >> $SUDO_USER_HOME/.zshrc
 cp ${SCRIPTDIRECTORY}/assets/qhe-markdown.html /usr/local/share/pandoc/data/templates/
 sed -i .original 's/\/bin\/tcsh/\/usr\/local\/bin\/zsh/g' /etc/passwd
+chsh -s zsh $SUDO_USER
+gsettings set io.elementary.terminal.settings font 'Monoid Nerd Font 12'
 
 
 # Clean Up
@@ -293,12 +305,14 @@ rm -rf $SUDO_USER_HOME/luarocks-3.9.2.tar.gz
 rm -rf $SUDO_USER_HOME/luarocks-3.9.2
 
 # Set ownership and perms
+chown $SUDO_USER $SUDO_USER_HOME/.xinitrc
 chown $SUDO_USER $SUDO_USER_HOME/.zshrc
 chown $SUDO_USER $SUDO_USER_HOME/dfs.sh
 chown $SUDO_USER /usr/local/share/pandoc/data/templates
 chown -R $SUDO_USER $SUDO_USER_HOME/.config
 chown $SUDO_USER /var/run/${SUDO_USER}-runtime
 chown -R $SUDO_USER $SUDO_USER_HOME/harden-dragonflybsd
+chmod 750 $SUDO_USER_HOME/.xinitrc
 chmod -R 740 $SUDO_USER_HOME/harden-dragonflybsd
 chmod 750 $SUDO_USER_HOME/dfs.sh
 

@@ -57,6 +57,13 @@
 
 * For security and privacy, the network settings have been changed to block the 110+ servers that Mozilla  uses to track browser activity. 
 * It is recommended for the user the setup [NextDNS](https://my.nextdns.io/start) Security to remove ads and malware, not uBlockOrigin.
+* Settings required in the URL `about:config`
+  * intl.regional_prefs.use_os_locales `true`
+  * Services.sync.prefs.sync.intl.regional._prefs.use_os_locates `false`
+  * dom.push.connection.enabled `false`
+  * dom.push.enabled `false`
+  * geo.enabled `false`
+
 
 ### System Tools
 

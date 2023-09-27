@@ -537,9 +537,13 @@ client.connect_signal("request::titlebars", function(c)
 end)
 
 -- QHE Mod Auto Workspace Spawns
+local main_tag = awful.tag.find_by_name(awful.screen.focused(), "Main")
 local web_tag = awful.tag.find_by_name(awful.screen.focused(), "Web")
 local email_tag = awful.tag.find_by_name(awful.screen.focused(), "Email")
 local office_tag = awful.tag.find_by_name(awful.screen.focused(), "Office")
+awful.spawn("io.elementary.terminal".." -e neofetch", {
+	tag = main_tag
+})
 awful.spawn("firefox", {
 	tag = web_tag
 })
