@@ -181,7 +181,7 @@ sleep 2
 
 
 printf "\n*******************$blue Desktop Set $end************************\n"
-printf "*******************************************************\n\n"
+printf "********************************************************\n\n"
 printf 'acpi_ibm_load="YES"\n' >> /boot/loader.conf
 sleep 2
 
@@ -197,9 +197,6 @@ printf 'setenv XKB_DEFAULT_RULES xorg\n' >> $SUDO_USER_HOME/.cshrc
 mkdir /var/run/${SUDO_USER}-runtime
 chmod 700 /var/run/${SUDO_USER}-runtime
 cp ${SCRIPTDIRECTORY}/assets/.xinitrc $SUDO_USER_HOME
-# touch $SUDO_USER_HOME/.Xauthority
-# chmod 700 $SUDO_USER_HOME/.Xauthority
-# printf 'xhost si:localuser:'${USER}'' >> $SUDO_USER_HOME/.Xauthority
 
 
 # Install Xorg Desktop
@@ -231,7 +228,8 @@ pw groupmod video -m ${SUDO_USER}
 mkdir -p $SUDO_USER_HOME/.config/awesome
 printf "\n*******************$blue Desktop Fix $end***********************\n"
 printf "*******************************************************\n\n"
-pkg install -y xf86-input-libinput
+printf 'hw.psm.synaptics_support="1"\n' >> /boot/loader.conf
+pkg install -y xf86-input-libinput xf86-input-synaptics libsynaptics
 
 
 
@@ -292,6 +290,7 @@ printf 'PATH=$PATH:${SUDO_USER_HOME}/.cargo/bin; export PATH\n' >> $SUDO_USER_HO
 cargo install fzyr
 printf 'alias dfs="~/dfs.sh"\n' >> $SUDO_USER_HOME/.zshrc
 printf 'alias fd="fd -H"\n' >> $SUDO_USER_HOME/.zshrc 
+printf 'alias rg="rg --no-messages"\n' >> $SUDO_USER_HOME/.zshrc
 cat ${SCRIPTDIRECTORY}/assets/mdp.zsh >> $SUDO_USER_HOME/.zshrc
 cp ${SCRIPTDIRECTORY}/assets/qhe-markdown.html /usr/local/share/pandoc/data/templates/
 sed -i .original 's/\/bin\/tcsh/\/usr\/local\/bin\/zsh/g' /etc/passwd

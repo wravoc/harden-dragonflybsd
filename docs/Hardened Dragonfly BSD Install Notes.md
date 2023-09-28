@@ -1,6 +1,8 @@
-# Hardened Dragonfly BSD Install Notes
+# Hardened Dragonfly BSD Install Manual
 
 ### DragonlyBSD Install Notes
+
+* If the Dragonfly pkg manager ever asks to delete everything and install libressl say No!
 
 * You need two FAT32 formatted USB drives, one for the install, the other for this software
   * You can use BalenaEtcher to make your install drive
@@ -50,7 +52,7 @@
 * Type `startx` to start your desktop
   * Ignore the .Xauthority at first run, this is normal
   * Ignore the .serverauth file does not exist this is normal.
-    * Delete them all regularly or 
+    * Delete them all regularly or change file `/usr/local/bin/startx` directive  to 0`enable_xauth=0`
 
 * When the terminal starts type `gsettings set io.elementary.terminal.settings font 'Monoid Nerd Font 12'` to match the rest of the theme or whatever Nerd Font you'd like.
 
@@ -156,9 +158,15 @@
 
 * Of the dozens of clients available very few still work, `irssi` and `iris-fish`(encryption module) are tested as working
 
+### Abiword
+
+Abiword is useful for viewing Office docs, but it always saves in it's own format `.abw`. You can always type in Asciidoc or Markdown in NVIM, but if you need to convert your Abiword files you can use https://cloudconvert.com/abw-converter or https://www.vertopal.com/en/convert/abw-to-asciidoc for free.
+
 ### Quadhelion Engineering Markdown Preview Shell Function
 
-*Preview Markdown files in as they would appear in GitHub (with a QHE provided template) in Firefox with auto-generated Table of Contents for faster review*. 
+Preview Markdown files in as they would appear in GitHub (with a QHE provided template) in Firefox with auto-generated Table of Contents for faster review. 
+
+**Firefox may throw errors complaining that it cannot get your precise location, ignore!**
 
 Simply type `mdp` in your shell
 
