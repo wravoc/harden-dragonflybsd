@@ -133,12 +133,8 @@ sleep 2
 pkg update
 printf "\n********************$blue Reseting Repo $end********************\n"
 printf "*******************************************************\n\n"
-# rm  /usr/local/etc/pkg.conf
-#sleep 2
 cp /usr/local/etc/pkg/repos/df-latest.conf.sample /usr/local/etc/pkg/repos/df-latest.conf
 echo
-pkg update
-sleep 10
 pkg update
 echo
 printf "\n*********************$blue Repo Reset $end**********************\n"
@@ -221,7 +217,6 @@ exit 0
 
 
 # Fix Xorg install keyboard device settings overwrite, setup tooling
-# Themes in /usr/local/share/awesome/themes
 xorgfix:
 pw groupmod wheel -m ${SUDO_USER}
 pw groupmod staff -m ${SUDO_USER}
@@ -269,10 +264,6 @@ cp -fR ${SCRIPTDIRECTORY}/assets/fonts.conf /usr/local/etc/X11/xorg.conf.d/
 cp -fR ${SCRIPTDIRECTORY}/assets/40-trackpoint.conf /usr/local/etc/X11/xorg.conf.d/
 cp -fR ${SCRIPTDIRECTORY}/util/dfs.sh $SUDO_USER_HOME
 
-# Set UTF for all users
-#sed -i .original 's/^default.*/& \n\t:charset=UTF-8:\\/' /etc/login.conf
-#sed -i .original2 's/^default.*/& \n\t:lang=en_US.UTF-8:\\/' /etc/login.conf
-#cap_mkdb /etc/login.conf
 
 # Setup NeoVIM
 pkg install -y neovim git nerd-fonts font-awesome ripgrep fd-find lazygit unzip gzip fzy

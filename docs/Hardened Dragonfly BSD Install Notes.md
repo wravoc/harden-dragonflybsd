@@ -74,11 +74,11 @@
 * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 * **<<<Firefox will render itself inoperative if you do not set these on first run!>>>**
 * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  * intl.regional_prefs.use_os_locales `true`
-  * services.sync.prefs.sync.intl.regional._prefs.use_os_locates `false`
   * dom.push.connection.enabled `false`
   * dom.push.enabled `false`
   * geo.enabled `false`
+  * *(Extra)* intl.regional_prefs.use_os_locales `true`
+  * *(Extra)* services.sync.prefs.sync.intl.regional._prefs.use_os_locates `false`
 
 ### System Tools
 
