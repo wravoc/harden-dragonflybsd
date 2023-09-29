@@ -45,7 +45,7 @@ endif
 # Change Prompt
 # To remove 24h Time delete: %T-
 sed -i .original '26s/.*/\tset prompt = "%T-%{\\033[0;32m%}%N%{\\033[0m%}-%{\\033[1;37m%}%C2%{\\033[0m%}-> "/' ${HOME}/.cshrc
-sed -i .original '27s/.*//' ${HOME}/.cshrc
+# sed -i .original '27s/.*//' ${HOME}/.cshrc
 
 
 # Get the install stages
@@ -96,7 +96,7 @@ printf "name_servers=208.67.222.222" >> /etc/resolvconf.conf
 
 
 # Install Basic Firewall
-cp $SCRIPTDIRECTORY/assets/pf.conf /etc
+cp ${SCRIPTDIRECTORY}/assets/pf.conf /etc
 sed -i .original 's/vio0/wlan0/g' /etc/pf.conf
 printf 'pf="YES"\n' >> /etc/rc.conf
 printf 'pf_load="YES"\n' >> /boot/loader.conf
@@ -127,24 +127,25 @@ printf "\n*********************$blue Fix pkg bug $end*********************\n"
 printf "Answer y[yes] to all \n"
 printf "*******************************************************\n\n"
 pkg update
-sleep 4
-pkg update
 sleep 2
+pkg install -y vim
+sleep 2
+pkg update
 printf "\n********************$blue Reseting Repo $end********************\n"
 printf "*******************************************************\n\n"
 # rm  /usr/local/etc/pkg.conf
-pkg upgrade
-sleep 2
+#sleep 2
 cp /usr/local/etc/pkg/repos/df-latest.conf.sample /usr/local/etc/pkg/repos/df-latest.conf
 echo
+pkg update
+sleep 10
+pkg update
 echo
-pkg check -Bda
 printf "\n*********************$blue Repo Reset $end**********************\n"
 printf "*******************************************************\n\n"
-sleep 2
-pkg install -y wget curl sudo python nghttp2
-sleep 10
-pkg install -y wget curl sudo python nghttp2
+pkg upgrade -f openssl
+pkg install -y wget sudo python 
+pkg upgrade -f openssl
 set wget_check = `pkg info wget | grep -m1 Name | awk '{ print $3 }'`
 echo
 echo
@@ -204,7 +205,7 @@ printf 'kern.evdev.rcpt_mask=6\n' >> /etc/sysctl.conf
 printf 'dbus_enable="YES"\n' >> /etc/rc.conf
 printf 'hald_enable="YES"\n' >> /etc/rc.conf
 printf 'kld_list="radeonkms"\n' >> /etc/rc.conf
-pkg install -y xorg xf86-video-ati lua54
+pkg install -y xorg xf86-video-ati lua54 vim
 set xorg_check = `pkg info xorg | grep -m1 Name | awk '{ print $3 }'`
 if ( $xorg_check == "xorg" ) then
     printf "\n***********************$green Success $end**********************\n"
@@ -269,9 +270,9 @@ cp -fR ${SCRIPTDIRECTORY}/assets/40-trackpoint.conf /usr/local/etc/X11/xorg.conf
 cp -fR ${SCRIPTDIRECTORY}/util/dfs.sh $SUDO_USER_HOME
 
 # Set UTF for all users
-sed -i .original 's/^default.*/& \n\t:charset=UTF-8:\\/' /etc/login.conf
-sed -i .original2 's/^default.*/& \n\t:lang=en_US.UTF-8:\\/' /etc/login.conf
-cap_mkdb /etc/login.conf
+#sed -i .original 's/^default.*/& \n\t:charset=UTF-8:\\/' /etc/login.conf
+#sed -i .original2 's/^default.*/& \n\t:lang=en_US.UTF-8:\\/' /etc/login.conf
+#cap_mkdb /etc/login.conf
 
 # Setup NeoVIM
 pkg install -y neovim git nerd-fonts font-awesome ripgrep fd-find lazygit unzip gzip fzy
@@ -293,8 +294,8 @@ printf 'alias fd="fd -H"\n' >> $SUDO_USER_HOME/.zshrc
 printf 'alias rg="rg --no-messages"\n' >> $SUDO_USER_HOME/.zshrc
 cat ${SCRIPTDIRECTORY}/assets/mdp.zsh >> $SUDO_USER_HOME/.zshrc
 cp ${SCRIPTDIRECTORY}/assets/qhe-markdown.html /usr/local/share/pandoc/data/templates/
-sed -i .original 's/\/bin\/tcsh/\/usr\/local\/bin\/zsh/g' /etc/passwd
-printf "\n export LANG=en_US.UTF-8 \n" >> $SUDO_USER_HOME/.zshrc
+printf "\nexport LANG=en_US.UTF-8\n" >> $SUDO_USER_HOME/.zshrc
+printf "export charset=UTF-8\n" >> $SUDO_USER_HOME/.zshrc
 chsh -s zsh $SUDO_USER
 
 
@@ -303,7 +304,6 @@ chsh -s zsh $SUDO_USER
 printf "\n*****************$green  Cleaning Up  $end***********************\n"
 printf "Pkg system check, clean, audit\n"
 printf "*******************************************************\n\n"
-rm -rf $SUDO_USER_HOME/.config/nvim/.git
 rm -rf $SUDO_USER_HOME/luarocks-3.9.2.tar.gz
 rm -rf $SUDO_USER_HOME/luarocks-3.9.2
 

@@ -54,6 +54,7 @@
   * Ignore the .serverauth file does not exist this is normal.
     * Delete them all regularly or change file `/usr/local/bin/startx` directive  to 0`enable_xauth=0`
 
+* If you want to turn off beeps type `xset b off`
 * When the terminal starts type `gsettings set io.elementary.terminal.settings font 'Monoid Nerd Font 12'` to match the rest of the theme or whatever Nerd Font you'd like.
 
 * Rarely, the trackpoint will get stuck, simply issue a `reboot` command.
