@@ -1,6 +1,6 @@
-# Hardened Dragonfly BSD Install Manual
+# Dragonfly Developer Workstation Install Manual
 
-### DragonlyBSD Install Notes
+### Dragonly BSD Install Notes
 
 * If the Dragonfly pkg manager ever asks to delete everything and install libressl say No!
 
@@ -128,6 +128,7 @@
 
 * `omz help`, `omz theme <command>`
 * Edit `./zshrc` and uncommnet line 74, `export LANG=en_US.UTF-8`
+* `git config oh-my-zsh.hide-status 1` for each directory, like $HOME, you don't want the git display prompt.
 * Create `fd` alias below the examples `alias fd="fd -H"`
 
 * There are uni-code characters present at the prompt when running as root in the system console, this is normal as root account need to the "C" locale and should **not** be changed.

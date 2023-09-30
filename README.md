@@ -4,7 +4,11 @@
 
 This security script utilizes years of security contributions by the entire BSD community across all spectra and decades of Professional Security Experience to implement what would take an experienced operator an hour or so to harden their system can be done in seconds with backups, logs, syntax checking, and Zenbleed workaround. 
 
-Not only security directives, but any conf directive can be set and re-set with a customizable `settings.ini` suitable for administering and tuning duties. All existing entries in all confs will remain untouched unless they are modified in the settings file.
+As a special edition versus the other BSD editions this repository includes a complete developer workstation installation and configuration total environment for a Lenovo Thinkpad T495! It was a WiFI configurator, installs all hardware drivers, and comes with a customized desktop environment including a network hardened Firefox, additionally replete with all the tools you'll need to make great software on the fastest BSD. See the docs folder for the [manual](docs/qhe-dragonfly-desktop-manual.md) for list of everything you get.
+
+![](images/dragonflybsd-qhe-theme.png)
+
+With this software not only security directives, but any conf directive can be set and re-set with a customizable `settings.ini` suitable for administering and tuning duties. All existing entries in all confs will remain untouched unless they are modified in the settings file.
 
 Each of the security settings was researched, assessed, and chosen as a set of mitigations for maximizing threat reduction while minimizing restriction of system capability and availability to DragonFly BSD.
 
@@ -48,10 +52,11 @@ Each of the security settings was researched, assessed, and chosen as a set of m
 
 ---
 
-## Addtional Software
+## Additonal Software
+
 * Post-Install complete setup script for Thinkpad T495, T495s
-    * Configures WiFI, GPU, Sound, Keyboard, Custom Themed [Awesome](https://awesomewm.org/) Desktop
-    * Elementary Terminal, Lazy NeoVIM, Ghostwriter+Pandoc, Claws Email Client, Firefox
+    * Configures WiFI, GPU, Screen, Trackpoint, Sound, Keyboard, Custom Themed [Awesome](https://awesomewm.org/) Desktop
+    * Elementary Terminal, Astro NeoVIM, Abiword+Pandoc, Claws Email Client, Hardened Firefox
     * Download and install to FAT32 formatted USB Drive, Insert after install is complete, make a user account for yourself
     * `mount_msdos /dev/da8s1 mnt`, `cp -fR /mnt/harden-dragonflybsd ~`
     * `cd harden-dragonflybsd`
@@ -65,8 +70,8 @@ Each of the security settings was researched, assessed, and chosen as a set of m
     * Copyright (c) 2022-2023 Slawomir Wojciech Wojtczak (vermaden)
     * Copyright (c) 2022 Trix Farrar
 * Scripts included to verify the implementation 
-**Run before and after the hardening.**
-    * Kernel vulnerablity diagnosis provided by [Stéphane Lesimple's](https://github.com/speed47) spectre-meltdown-checker
+  **Run before and after the hardening.**
+    * Kernel vulnerability diagnosis provided by [Stéphane Lesimple's](https://github.com/speed47) spectre-meltdown-checker
         * `cd vendor`
         * `chmod 750 spectre-meltdown-checker.sh`
         * `sudo ./spectre-meltdown-checker.sh`
@@ -146,7 +151,7 @@ zfs mount -a
 ## Customization
 
 #### 64bit vs 32bit
-Most tunable mitigations for 64bit are already included by default in FreeBSD 13.1 so 32bit directives were included for coverage. I can see no affect from setting the 32bit mitigations on 64bit systems, they are simply ignored. For clarity on unknown hardware, hardware mode, VM, or cloud use the following commands:
+Most tunable mitigations for 64bit are already included by default in FreeBSD 13.1 so 32bit directives were included for coverage. I can see no effect from setting the 32bit mitigations on 64bit systems, they are simply ignored. For clarity on unknown hardware, hardware mode, VM, or cloud use the following commands:
 * CPU: `sysctl hw.model hw.machine hw.ncpu`
 * Bits: `getconf LONG_BIT`
 
@@ -168,7 +173,7 @@ Those files are:
 
 #### Secure Password Settings
 
-The newly applied settings will not take affect until you reset your password.
+The newly applied settings will not take effect until you reset your password.
 
 ---
 
@@ -184,7 +189,7 @@ The newly applied settings will not take affect until you reset your password.
 3. Have all jails pointing to the same rc script via `exec.start` and set paths in the script pointing to the same location modified by the script paths. 
 4. Add new jail specific entires to `settings.ini [SYSTEM]` section for sysctl.conf udpate
    - `security.jail.* = 0`
-5. Use mutiple copies of the script and settings.ini for each jail
+5. Use multiple copies of the script and settings.ini for each jail
 6. Put it in your template
 
 

@@ -183,14 +183,14 @@ printf 'acpi_ibm_load="YES"\n' >> /boot/loader.conf
 sleep 2
 
 # Setup XDG environment
-printf 'setenv XDG_RUNTIME_DIR /var/run/$USER-runtime\n' >> $SUDO_USER_HOME/.cshrc
-printf 'setenv XDG_CONFIG_HOME $HOME/.config\n' >> $SUDO_USER_HOME/.cshrc
-printf 'setenv XDG_DATA_HOME $HOME/.local/share\n' >> $SUDO_USER_HOME/.cshrc
-printf 'setenv XDG_STATE_HOME $HOME/.local/state\n' >> $SUDO_USER_HOME/.cshrc
-printf 'setenv XDG_CACHE_HOME $HOME/.cache\n' >> $SUDO_USER_HOME/.cshrc
-printf 'setenv XDG_DATA_DIRS /usr/local/share/:/usr/share/\n' >> $SUDO_USER_HOME/.cshrc
-printf 'setenv XDG_CONFIG_DIRS /etc/xdg\n' >> $SUDO_USER_HOME/.cshrc
-printf 'setenv XKB_DEFAULT_RULES xorg\n' >> $SUDO_USER_HOME/.cshrc
+printf 'setenv XDG_RUNTIME_DIR /var/run/$USER-runtime\n' >> $HOME/.cshrc
+printf 'setenv XDG_CONFIG_HOME $HOME/.config\n' >> $HOME/.cshrc
+printf 'setenv XDG_DATA_HOME $HOME/.local/share\n' >> $HOME/.cshrc
+printf 'setenv XDG_STATE_HOME $HOME/.local/state\n' >> $HOME/.cshrc
+printf 'setenv XDG_CACHE_HOME $HOME/.cache\n' >> $HOME/.cshrc
+printf 'setenv XDG_DATA_DIRS /usr/local/share/:/usr/share/\n' >> $HOME/.cshrc
+printf 'setenv XDG_CONFIG_DIRS /etc/xdg\n' >> $HOME/.cshrc
+printf 'setenv XKB_DEFAULT_RULES xorg\n' >> $HOME/.cshrc
 mkdir /var/run/${SUDO_USER}-runtime
 chmod 700 /var/run/${SUDO_USER}-runtime
 cp ${SCRIPTDIRECTORY}/assets/.xinitrc $SUDO_USER_HOME
@@ -287,6 +287,14 @@ cat ${SCRIPTDIRECTORY}/assets/mdp.zsh >> $SUDO_USER_HOME/.zshrc
 cp ${SCRIPTDIRECTORY}/assets/qhe-markdown.html /usr/local/share/pandoc/data/templates/
 printf "\nexport LANG=en_US.UTF-8\n" >> $SUDO_USER_HOME/.zshrc
 printf "export charset=UTF-8\n" >> $SUDO_USER_HOME/.zshrc
+printf 'export XDG_RUNTIME_DIR=/var/run/$USER-runtime\n' >> $SUDO_USER_HOME/.zshrc
+printf 'export XDG_CONFIG_HOME=$HOME/.config\n' >> $SUDO_USER_HOME/.zshrc
+printf 'export XDG_DATA_HOME=$HOME/.local/share\n' >> $SUDO_USER_HOME/.zshrc
+printf 'export XDG_STATE_HOME=$HOME/.local/state\n' >> $SUDO_USER_HOME/.zshrc
+printf 'export XDG_CACHE_HOME=$HOME/.cache\n' >> $SUDO_USER_HOME/.zshrc
+printf 'export XDG_DATA_DIRS=/usr/local/share/:/usr/share/\n' >> $SUDO_USER_HOME/.zshrc
+printf 'export XDG_CONFIG_DIRS=/etc/xdg\n' >> $SUDO_USER_HOME/.zshrc
+printf "export XKB_DEFAULT_RULES=xorg\n" >> $SUDO_USER_HOME/.zshrc
 chsh -s zsh $SUDO_USER
 
 
