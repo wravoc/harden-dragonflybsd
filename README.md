@@ -4,13 +4,11 @@
 
 This security script utilizes years of security contributions by the entire BSD community across all spectra and decades of Professional Security Experience to implement what would take an experienced operator an hour or so to harden their system can be done in seconds with backups, logs, syntax checking, and Zenbleed workaround. 
 
-As a special edition versus the other BSD editions this repository includes a complete developer workstation installation and configuration total environment for a Lenovo Thinkpad T495! It was a WiFI configurator, installs all hardware drivers, and comes with a customized desktop environment including a network hardened Firefox, additionally replete with all the tools you'll need to make great software on the fastest BSD. See the docs folder for the [manual](docs/qhe-dragonfly-desktop-manual.md) for list of everything you get.
+As a special edition versus the other BSD editions this repository includes a complete developer workstation installation and configuration total environment for a Lenovo Thinkpad T495! It was a WiFI configurator, installs all hardware drivers, and comes with a customized desktop environment including a network hardened Firefox, additionally replete with all the tools you'll need to make great software on the fastest BSD. It is built to be easy on the eyes and easy on the hands and everything was chosen to be fast, fast, fast.
+
+See the docs folder for the [manual](docs/qhe-dragonfly-desktop-manual.md) for list of everything you get.
 
 ![](images/dragonflybsd-qhe-theme.png)
-
-With this software not only security directives, but any conf directive can be set and re-set with a customizable `settings.ini` suitable for administering and tuning duties. All existing entries in all confs will remain untouched unless they are modified in the settings file.
-
-Each of the security settings was researched, assessed, and chosen as a set of mitigations for maximizing threat reduction while minimizing restriction of system capability and availability to DragonFly BSD.
 
 
 ---
@@ -56,7 +54,7 @@ Each of the security settings was researched, assessed, and chosen as a set of m
 
 * Post-Install complete setup script for Thinkpad T495, T495s
     * Configures WiFI, GPU, Screen, Trackpoint, Sound, Keyboard, Custom Themed [Awesome](https://awesomewm.org/) Desktop
-    * Elementary Terminal, Astro NeoVIM, Abiword+Pandoc, Claws Email Client, Hardened Firefox
+    * Elementary Terminal, AstroNVIM, Abiword+Pandoc, Claws Email Client, Hardened Firefox, Ripgrep, Fuzzy Finder, FD Find, and more.
     * Download and install to FAT32 formatted USB Drive, Insert after install is complete, make a user account for yourself
     * `mount_msdos /dev/da8s1 mnt`, `cp -fR /mnt/harden-dragonflybsd ~`
     * `cd harden-dragonflybsd`
