@@ -1,4 +1,20 @@
 # Dragonfly Developer Workstation Install Manual
+<!--toc-->
+- [Dragonfly Developer Workstation Install Manual](#dragonfly-developer-workstation-install-manual)
+        * [Dragonly BSD Install Notes](#dragonly-bsd-install-notes)
+        * [Awesome Window Manger (AwesomeWM)](#awesome-window-manger-awesomewm)
+        * [Firefox Block](#firefox-block)
+        * [System Tools](#system-tools)
+        * [Xorg](#xorg)
+        * [OhMyZsh](#ohmyzsh)
+        * [AstroNvim ](#astronvim-httpsastronvimcom)
+        * [IRC Client](#irc-client)
+        * [Abiword](#abiword)
+        * [Quadhelion Engineering Markdown Preview Shell Function](#quadhelion-engineering-markdown-preview-shell-function)
+
+<!-- tocstop -->
+---
+
 
 ### Dragonly BSD Install Notes
 

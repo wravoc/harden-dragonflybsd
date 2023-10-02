@@ -1,12 +1,38 @@
 # Harden DragonFly BSD 
+<!--toc-->
+- [Harden DragonFly BSD](#harden-dragonfly-bsd)
+    * [Main Features](#main-features)
+    * [Special gifts](#special-gifts)
+    * [New Features in 3.0.1](#new-features-in-301)
+    * [Additonal Software](#additonal-software)
+    * [Security Verification](#security-verification)
+    * [Zenbleed Workaround](#zenbleed-workaround)
+        * [Zenbleed Features](#zenbleed-features)
+        * [Execute](#execute)
+        * [Arguments](#arguments)
+    * [Requirements](#requirements)
+    * [Installation](#installation)
+    * [Conf File Verification](#conf-file-verification)
+    * [Customization](#customization)
+    * [Automatic Jail Lockdown/Management Strategies](#automatic-jail-lockdownmanagement-strategies)
+    * [Setting Descriptors](#setting-descriptors)
+    * [License Summary](#license-summary)
+        * [Software](#software)
+        * [Digital Art](#digital-art)
+    * [Security Guidelines](#security-guidelines)
+    * [Statement of Security](#statement-of-security)
+        * [Latest Version](#latest-version)
+
+<!-- tocstop -->
+---
 
 ![](images/harden-dragonflybsd-preview.png)
 
 This security script utilizes years of security contributions by the entire BSD community across all spectra and decades of Professional Security Experience to implement what would take an experienced operator an hour or so to harden their system can be done in seconds with backups, logs, syntax checking, and Zenbleed workaround. 
 
-As a special edition versus the other BSD editions this repository includes a complete developer workstation installation and configuration total environment for a Lenovo Thinkpad T495! It was a WiFI configurator, installs all hardware drivers, and comes with a customized desktop environment including a network hardened Firefox, additionally replete with all the tools you'll need to make great software on the fastest BSD. It is built to be easy on the eyes and easy on the hands and everything was chosen to be fast, fast, fast.
+As a special edition versus the other BSD Hardening Editions {[FreeBSD](https://quadhelion.dev/elias/harden-freebsd), [GhostBSD](https://quadhelion.dev/elias/harden-ghostbsd)} this repository includes a complete developer workstation installation and configuration for a Lenovo Thinkpad T495, the most [compatible](https://wiki.freebsd.org/Laptops) and latest Thinkpad. Includes a WiFI configurator, installs all hardware drivers, and comes with a customized desktop environment including a network hardened Firefox, additionally replete with all the tools you'll need to make great software on the [fastest BSD](https://www.phoronix.com/review/bsd-linux-eo2021/7). It is built to be easy on the eyes and easy on the hands and everything was chosen to be fast, fast, fast.
 
-See the docs folder for the [manual](docs/qhe-dragonfly-desktop-manual.md) for list of everything you get.
+See the docs folder [manual](docs/qhe-dragonfly-desktop-manual.md) for the list of everything you get.
 
 ![](images/dragonflybsd-qhe-theme.png)
 
@@ -15,6 +41,7 @@ See the docs folder for the [manual](docs/qhe-dragonfly-desktop-manual.md) for l
 
 ## Main Features
 
+* Sets kernel, network, and file system mitigations
 * Makes backups of `rc.conf`, `sysctl.conf`, `login.conf`, and `loader.conf` on first run
 * Sets passwords to blowfish encryption
 * Sets passwords to expire at 120 days
@@ -24,18 +51,16 @@ See the docs folder for the [manual](docs/qhe-dragonfly-desktop-manual.md) for l
 * Removes `other` write permissions from key system files and folders
 * Allows only root for `cron` and `at`
 * Primitive flag verification catches simple errors
-* Modularizable within other tools
 * Automate any shell script
 * System Logging to `/var/log/messages` and Script Logging to `/var/log/harden-dragonflybsd.log`
 * Pretty prints color output of script execution to console while running
-* Sets umask to 27
 
 ---
 
 
-## Includes
-* Desktop Wallpapers as a special gift to users of the Software
-* Directory (Hier)archy Visual Map, PDF, in /docs
+## Special gifts
+* Designer Desktop Wallpaper
+* Visual PDF Map of the directory (hier)archy, folder structure
 
 
 ---
@@ -52,6 +77,9 @@ See the docs folder for the [manual](docs/qhe-dragonfly-desktop-manual.md) for l
 
 ## Additonal Software
 
+* Dragonfly Dashboard 
+    * Display system information like WiFI Status, Battery Life, CPU Temp, Free Memory.
+    * `dfs` alias to `dfs.sh`
 * Post-Install complete setup script for Thinkpad T495, T495s
     * Configures WiFI, GPU, Screen, Trackpoint, Sound, Keyboard, Custom Themed [Awesome](https://awesomewm.org/) Desktop
     * Elementary Terminal, AstroNVIM, Abiword+Pandoc, Claws Email Client, Hardened Firefox, Ripgrep, Fuzzy Finder, FD Find, and more.
@@ -59,14 +87,14 @@ See the docs folder for the [manual](docs/qhe-dragonfly-desktop-manual.md) for l
     * `mount_msdos /dev/da8s1 mnt`, `cp -fR /mnt/harden-dragonflybsd ~`
     * `cd harden-dragonflybsd`
     * `util/thinkpad-t495-setup.csh`
-    * Do NOT run as root for the Desktop Setup! `sudo util/thinkpad-t495-setup.csh`
+    * Do NOT run as root for the Desktop Setup!
 * Z Shell function/alias/macro for Previewing Markdown files in Firefox `mdp <file.md>`
-    * Modify in `~/.zshrc`
-* Shell Script to present available sensor information like Battery Life, CPU Temp, HDD Status
-    * `vendor/sensors.sh`
-    * Script by vermaden@interia.pl https://vermaden.wordpress.com 
-    * Copyright (c) 2022-2023 Slawomir Wojciech Wojtczak (vermaden)
-    * Copyright (c) 2022 Trix Farrar
+    * Includes a custom template to mimic the GitHub proprietary Markdown courtesy of Fabrizio Musacchio (https://www.fabriziomusacchio.com).
+    * Automatically insert a Table of Contents
+    * Modify things such as markdown parser, TOC depth, in `~/.zshrc`
+
+## Security Verification
+
 * Scripts included to verify the implementation 
   **Run before and after the hardening.**
     * Kernel vulnerability diagnosis provided by [Stéphane Lesimple's](https://github.com/speed47) spectre-meltdown-checker
@@ -171,7 +199,7 @@ Those files are:
 
 #### Secure Password Settings
 
-The newly applied settings will not take effect until you reset your password.
+The newly applied settings will not take effect until you reset your password and rebooted.
 
 ---
 
@@ -196,6 +224,7 @@ The newly applied settings will not take effect until you reset your password.
 
 ## Setting Descriptors
 **Startup**
+
 * `kern_securelevel_enable = "YES"`
     * Enable access to other than permanently insecure modes
 * `microcode_update_enable = "YES"`
@@ -245,6 +274,7 @@ The newly applied settings will not take effect until you reset your password.
 
 
 **Kernel**
+
 * `pf_load = "YES"`
     * Enable Firewall
 * `security.bsd.allow_destructive_dtrace = "0"`
@@ -275,17 +305,17 @@ Non-Commercial usage, retain and forward author and license data. Modify existin
 
 ### Digital Art
 All Original Digital Artists recieve automatic Copyright. 
-* Supplemental License [here](digital%20art/Quadhelion%20Engineering%20Universal%20Digital%20Art%20License.md)
+* Supplemental License [here](digital-art/qhe-digital-art-license.md)
 
 
 ## Security Guidelines
 
 Since this Software uses shell commands it is required to place it in a secure directory with permissions on the **parent** directory to have no permissions for `other` /all/world group to write or *execute* and **no network access**. 
 
-Please follow [these guidelines](/docs/SECURITY.md) should you find a vulnerability not addressed in the audit.
+Please follow [these guidelines](docs/SECURITY.md) should you find a vulnerability not addressed in the audit.
 
 
-## Statement of Security: 
+## Statement of Security
 
 * **Risk** - Low
 * **Impact** - Medium
@@ -295,10 +325,11 @@ This script has no networking, accesses no sockets, and uses only standard libra
 Although this script is using `subprocess.run(shell=True)` the only possibility of shell injection is from the paths customized by the Licensee or unauthorized access to the filesystem the script resides on in order to perform unauthorized modifications to `settings.ini`or the Software which is not a vulnerability of the Software. 
 
 
-### Latest Development Version
+### Latest Version
 
-[Quadhelion Engineering Code Repository](https://got.quadhelion.engineering)
+[Quadhelion Engineering Code Repository](https://quadhelion.dev)
 
 
 
 ![quadhelion engineering logo](images/quadhelionEngineeringIcon.jpg)
+

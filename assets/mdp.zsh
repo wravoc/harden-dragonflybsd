@@ -39,7 +39,7 @@ function mdp() {
         cp -f $1 $filename_toc
         printf '%s\n' /'#'/a '<!-- toc -->' . w q | ex -s $filename_toc
         markdown-toc --maxdepth 2 -i $filename_toc
-        pandoc $filename_toc -f markdown_mmd -t html5 -s -o "${basename_toc}.html" --metadata title="${basename}" --template=qhe-markdown.html
+        pandoc $filename_toc -f markdown_mmd -t html5 -s -o "${filepath}/${basename_toc}.html" --metadata title="${basename}" --template=qhe-markdown.html
         firefox file://${filepath}/${basename_toc}.html
 }
 
