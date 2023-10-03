@@ -306,6 +306,7 @@ Non-Commercial usage, retain and forward author and license data. Modify existin
 ### Digital Art
 All Original Digital Artists recieve automatic Copyright. 
 * Supplemental License [here](digital-art/qhe-digital-art-license.md)
+* Dragonfly BSD Logo used with Permission
 
 
 ## Security Guidelines
