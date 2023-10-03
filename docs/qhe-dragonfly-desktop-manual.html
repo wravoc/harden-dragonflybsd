@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+     /*
+        "GitHub Flavor", a GitHub flavored CSS style sheet for Markdown documents.
+        Based on Chris Patuzzo's github.css (https://gist.github.com/tuzz/3331384).
+
+
+        author: Fabrizio Musacchio (https://www.fabriziomusacchio.com)
+        date: 03.01.2020
+
+
+        License:
+
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+
+
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+     */
+
+   
+     body {
+        font-family:      Helvetica, arial, sans-serif;
+        font-size:        14px;
+        line-height:      1.4em;
+        background-color: white;
+        padding-top:      10px;
+        padding-bottom:   10px;
+        padding-left:     25px;
+        padding-right:    25px; }
+
+      body > *:first-child {
+        margin-top:   0 !important; }
+      body > *:last-child {
+        margin-bottom:0 !important; }
+
+      /* Smooth scrolling */
+      @media screen and (prefers-reduced-motion: no-preference) {
+        html {
+          scroll-behavior: smooth;
+        }
+      }
+
+      /*Links*/
+      a {
+        color:            #3973ad;
+        text-decoration:  none;}
+      a:hover{
+        /* text-decoration: underline; */
+        color:            #4183C4;
+      }
+      a.absent {
+        color:            #cc0000; }
+      a.anchor {
+        display:          block;
+        padding-left:     30px;
+        margin-left:      -30px;
+        cursor:           pointer;
+        position:         absolute;
+        top:              0;
+        left:             0;
+        bottom:           0; }
+
+      /*Headlines*/
+      h1, h2, h3, h4, h5, h6 {
+        margin:       20px 0 10px;
+        padding:      0;
+        line-height:  1.4em;
+        font-weight:  bold;
+        -webkit-font-smoothing: antialiased;
+        cursor:       text;
+        position:   relative; }
+
+      h1 tt, h1 code {
+        font-size: inherit; }
+
+      h2 tt, h2 code {
+        font-size: inherit; }
+
+      h3 tt, h3 code {
+        font-size: inherit; }
+
+      h4 tt, h4 code {
+        font-size: inherit; }
+
+      h5 tt, h5 code {
+        font-size: inherit; }
+
+      h6 tt, h6 code {
+        font-size: inherit; }
+
+      h1 {
+        font-size: 28px;
+        color: black; }
+
+      h2 {
+        font-size: 24px;
+        border-bottom: 1px solid #cccccc;
+        color: black; }
+
+      h3 {
+        font-size: 18px; }
+
+      h4 {
+        font-size: 16px; }
+
+      h5 {
+        font-size: 14px; }
+
+      h6 {
+        color: #777777;
+        font-size: 14px; }
+
+      p, blockquote, ul, ol, dl, li, table, pre {
+        margin: 15px 0; }
+
+      /*Margins and paddings of the first line content*/
+      body > h2:first-child {
+        margin-top: 0;
+        padding-top: 0; }
+      body > h1:first-child {
+        margin-top: 0;
+        padding-top: 0; }
+        body > h1:first-child + h2 {
+          margin-top: 0;
+          padding-top: 0; }
+      body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+        margin-top: 0;
+        padding-top: 0; }
+
+      a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+        margin-top: 0;
+        padding-top: 0; }
+
+      h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+        margin-top: 0;
+      }
+
+      /*Lists*/
+      ul li,ol li{
+        margin-top:     .15em;
+        margin-bottom:  .15em;
+      }
+      ul li li{
+        margin-left:    -15px;
+      }
+      ul ul,ul ol,ol ol,ol ul{
+        margin-top:     0;
+        margin-bottom:  0em;
+      }
+
+      /*Footnotes*/
+      a[href^="#fn:"]:after{
+          content:        ')';
+          font-size:      0.83em;
+          vertical-align: super;
+          line-height:    0;
+      }
+      /*Highlights the BG of current jumped-to footnote:*/
+      li:target {
+          background-color: #e8fef6;
+      }
+      .footnotes > ol > li > p {
+          display:        inline;
+      }
+      .footnotes ol {
+          list-style:     none;
+          counter-reset:  footnotes;
+          padding-left:   15px;
+      }
+      .footnotes ol li {
+          counter-increment:footnotes;
+      }
+      .footnotes ol li:before {
+          /* background-color: #e8fef6; */
+          font-weight:      bold;
+          /* counter-reset: footnotes; */
+          content:          counters(footnotes, ".") ")";
+      }
+      .footnotes li {
+          padding-bottom:     0.45em;
+      }
+      .footnotes {
+          /* only use is for border, background-color of block */
+        /* border: dashed 0px #f4f5f8; */
+        background-color: #f4f5f8;
+        padding:          0em 0em 0.25em 0em;
+      }
+      /*.footnotes:before{
+          content:        "Footnotes";
+          font-size:      1.2em;
+          font-weight:    bold;
+          line-height:    2.5em;
+          padding-left:   0.5em;
+      }*/
+
+      /*TOC (for DEVONthink Markdown documents; for other editors, try e.g. ".toc")*/
+      .TOC {
+          background:     #f4f5f8 none repeat scroll 0 0; //f3f6f6
+          border:         0px solid #aaa;
+          border-radius:  10px;
+          display:        table;
+          font-size:      95%;
+          margin-bottom:  1em;
+          padding-left:   2px;
+          padding-top:    2px;
+          padding-bottom: 2px;
+          padding-right:  2px;
+          width:          100%;
+      }
+
+      /*uncomment if you'd like to automatically add a title to your TOC:*/
+      /*.TOC:before {
+          content:        "Table of Contents";
+          font-weight:    bold;
+          font-size:      1.1em;
+          color:          #3973ad;
+          padding-left:   1em;
+          margin-bottom: -1em;
+          line-height:    3em;
+      }*/
+
+      .TOC li, .TOC ul, .TOC ul li{
+          list-style:     decimal;
+      }
+
+      .top-link {
+        transition:       all .25s ease-in-out;
+        position:         fixed;
+        bottom:           0;
+        right:            0;
+        display:          inline-flex;
+        color:            #000000;
+
+        cursor:           pointer;
+        align-items:      center;
+        justify-content:  center;
+        margin:           0 2em 2em 0;
+        border-radius:    50%;
+        padding:          .25em;
+        width:            1em;
+        height:           1em;
+        background-color: #F8F8F8;
+      }
+
+      /*Check-Boxes/To-Do-Boxes (doesn't work in DEVONthink Markdown documents)*/
+      /* ul li.checkbox {
+        appearance: none;
+        background-color: #fff;
+        margin: 0;
+        font: inherit;
+        color: #b2b2b2;
+        width: 1.15em;
+        height: 1.15em;
+        border: 0.15em solid #b2b2b2;
+        border-radius: 0.15em;
+      } */
+
+      /* input[type="checkbox"] {
+        appearance: none;
+        background-color: #fff;
+        margin: 0;
+        font: inherit;
+        color: #b2b2b2;
+        width: 1.15em;
+        height: 1.15em;
+        border: 0.15em solid #b2b2b2;
+        border-radius: 0.15em;
+      }
+
+      input[type="checkbox"]::before {
+        content: " ";
+        width: 0.65em;
+        height: 0.65em;
+        clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+      }
+
+      input[type="checkbox"]:checked::after {
+        content: "_";
+        color: #cdef9a;
+        box-shadow: inset 4em 2em #cdef9a;
+      }
+
+      .task-list-item {
+        list-style-type: none;
+        margin-top: 0px;
+        margin-bottom: 0px;
+      }
+
+      .task-list-item input {
+        margin: 0 0.2em .25em -1.6em;
+        vertical-align: middle;
+        padding-bottom: 0px;
+        opacity: 1;
+      } */
+
+      /*Definition lists*/
+      dl {
+        padding:            0; }
+        dl dt {
+          font-size:        14px;
+          font-weight:      bold;
+          font-style:       italic;
+          padding:          0;
+          margin:           15px 0 5px; }
+          dl dt:first-child {
+            padding:        0; }
+          dl dt > :first-child {
+            margin-top:     0; }
+          dl dt > :last-child {
+            margin-bottom:  0; }
+        dl dd {
+          margin:           0 0 15px;
+          padding:          0 15px; }
+          dl dd > :first-child {
+            margin-top:     0; }
+          dl dd > :last-child {
+            margin-bottom:  0; }
+
+      /*Quotes*/
+      blockquote {
+        border-left:        4px solid #dddddd;
+        padding:            0 15px;
+        font-style:         normal;
+        color:              #5598c1; }  /* 777777 */
+        blockquote > :first-child {
+          margin-top:       0; }
+        blockquote > :last-child {
+          margin-bottom:    0; }
+
+      /*Tables*/
+      table {
+        padding:            0;border-collapse: collapse;
+        margin-left:        auto;
+        margin-right:       auto;
+        text-align:         center;}
+        table tr {
+          /* border-top: 1px solid #cccccc; */
+          background-color: white;
+          margin:           0;
+          padding:          0; }
+          table tr:nth-child(2n) {
+            background-color: #f8f8f8; }
+          table tr th {
+            font-weight:    bold;
+            /* border: 0.5px solid #cccccc; */
+            /* border-left: 0.5px solid #cccccc;
+            border-right: 0.5px solid #cccccc; */
+            background-color: #eefbff;
+            font-size:      14px;
+            margin:         0;
+            padding:        0.4em 0.35em 0.4em 0.35em; }
+          table tr td {
+            /* border: 1px solid #cccccc; */
+            margin:         0;
+            font-size:     14px;
+            padding:       5px 5px; }
+          table tr th :first-child, table tr td :first-child {
+            margin-top:     0; }
+          table tr th :last-child, table tr td :last-child {
+            margin-bottom:  0; }
+
+      /*Images*/
+      img {
+        max-width: 100%;}
+      /*Alternative: center Images*/
+      /* img {
+          display: block;
+          max-width: 100%;
+          margin-left: auto;
+          margin-right: auto; }
+      */
+
+      /*Span*/
+      span.frame {
+        display:      block;
+        overflow:     hidden;
+      }
+      span.frame > span {
+          border:     1px solid #dddddd;
+          display:    block;
+          float:      left;
+          overflow:   hidden;
+          margin:     13px 0 0;
+          padding:    7px;
+          width:      auto;
+      }
+      span.frame span img {
+          display:    block;
+          float:      left;
+      }
+      span.frame span span {
+          clear:      both;
+          color:      #333333;
+          display:    block;
+          padding:    5px 0 0;
+      }
+      span.align-center {
+        display:      block;
+        overflow:     hidden;
+        clear:        both;
+      }
+      span.align-center > span {
+          display:    block;
+          overflow:   hidden;
+          margin:     13px auto 0;
+          text-align: center;
+      }
+      span.align-center span img {
+          margin:     0 auto;
+          text-align: center;
+      }
+      span.align-right {
+        display:      block;
+        overflow:     hidden;
+        clear:        both;
+      }
+      span.align-right > span {
+          display:    block;
+          overflow:   hidden;
+          margin:     13px 0 0;
+          text-align: right;
+      }
+      span.align-right span img {
+          margin:     0;
+          text-align: right;
+      }
+      span.float-left {
+        display:      block;
+        margin-right: 13px;
+        overflow:     hidden;
+        float:        left;
+      }
+      span.float-left span {
+          margin:     13px 0 0;
+      }
+      span.float-right {
+        display:      block;
+        margin-left:  13px;
+        overflow:     hidden;
+        float:        right;
+      }
+      span.float-right > span {
+          display:    block;
+          overflow:   hidden;
+          margin:     13px auto 0;
+          text-align: right;
+      }
+
+      /*Code blocks*/
+      code, tt {
+          margin:             0 2px;
+          padding:            0 5px;
+          white-space:        nowrap;
+          border:             1px solid #eaeaea;
+          background-color:   #f8f8f8;
+          border-radius:      3px;
+      }
+
+      pre code {
+          margin:             0;
+          padding:            0;
+          white-space:        pre;
+          border:             none;
+          background:         transparent;
+      }
+
+      .highlight pre {
+          background-color:   #f8f8f8;
+          border:             1px solid #cccccc;
+          font-size:          13px;
+          line-height:        19px;
+          overflow:           auto;
+          padding:            6px 10px;
+          border-radius:      3px;
+      }
+
+      /*Preformatted text*/
+      pre {
+          background-color:   #f8f8f8;
+          border:             1px solid #cccccc;
+          /*font-size:          13px;*/
+          font-size:          0.90em !important;
+          line-height:        1.6em !important; //19px
+          overflow:           auto;
+          padding:            6px 10px;
+          border-radius:      3px;
+      }
+      pre code, pre tt {
+          background-color:   transparent;
+          border:             none;
+      }
+
+      /*Superscript text*/
+      sup {
+          font-size:          0.83em;
+          vertical-align:     super;
+          line-height:        0;
+      }
+
+      /*Subscript text*/
+      sub {
+          font-size:          0.83em;
+          vertical-align:     sub;
+          line-height:        0;
+      }
+
+      /*Define keyboard input*/
+      kbd {
+        display:            inline-block;
+        padding:            3px 5px;
+        font-size:          11px;
+        line-height:        10px;
+        color:              #555;
+        vertical-align:     middle;
+        background-color:   #fcfcfc;
+        border:             solid 1px #ccc;
+        border-bottom-color:#bbb;
+        border-radius:      3px;
+        box-shadow:         inset 0 -1px 0 #bbb
+      }
+
+      /*Color of highlighted text*/
+      mark {
+        background-color: #fdfdcc;
+        color: black;
+      }
+
+      /*Adjustments for printing*/
+      * {
+        -webkit-print-color-adjust: exact;
+      }
+      @media screen and (min-width: 914px) {
+          body {
+              width:              854px;
+              margin:             0 auto;
+          }
+      }
+      @media print {
+        table, pre {
+          page-break-inside:  avoid;
+        }
+        pre {
+          word-wrap:          break-word;
+        }
+        body {
+          padding:                2cm;
+        }
+      } 
+
+    </style>
+
+      <h1 id="dragonfly-developer-workstation-install-manual">Dragonfly
+      Developer Workstation Install Manual</h1>
+      <!--toc-->
+      <ul>
+      <li><a
+      href="#dragonfly-developer-workstation-install-manual">Dragonfly
+      Developer Workstation Install Manual</a> * <a
+      href="#dragonly-bsd-install-notes">Dragonly BSD Install Notes</a>
+      * <a href="#awesome-window-manger-awesomewm">Awesome Window Manger
+      (AwesomeWM)</a> * <a href="#firefox-block">Firefox Block</a> * <a
+      href="#system-tools">System Tools</a> * <a href="#xorg">Xorg</a> *
+      <a href="#ohmyzsh">OhMyZsh</a> * <a
+      href="#astronvim-httpsastronvimcom">AstroNvim</a> * <a
+      href="#irc-client">IRC Client</a> * <a href="#abiword">Abiword</a>
+      * <a
+      href="#quadhelion-engineering-markdown-preview-shell-function">Quadhelion
+      Engineering Markdown Preview Shell Function</a></li>
+      </ul>
+      <h2 id="section"><!-- tocstop --></h2>
+      <h3 id="dragonly-bsd-install-notes">Dragonly BSD Install
+      Notes</h3>
+      <ul>
+      <li><p>If the Dragonfly pkg manager ever asks to delete everything
+      and install libressl say No!</p></li>
+      <li><p>You need two FAT32 formatted USB drives, one for the
+      install, the other for this software</p>
+      <ul>
+      <li>You can use BalenaEtcher to make your install drive</li>
+      <li>When copying to and from <em>USB drives</em> <code>/mnt</code>
+      make sure to <code>cp</code> <em>overwrite</em> with
+      <code>cp -fR /mnt/harden-dragonflybsd $HOME</code></li>
+      </ul></li>
+      <li><p>Use your FAT32 USB drive
+      <code>mount_msdos /dev/da8s1 /mnt</code> ,
+      <code>ls /mnt</code></p></li>
+      <li><p><code>cp -fR /mnt/harden-dragonflybsd $HOME</code> the
+      files to root home, using <code>-f</code> here to get into the
+      habit.</p></li>
+      <li><p>Yes, the reboot stratgey is best on a physical laptop!
+      Booting the kernel modules for smoothest operation, for pkg update
+      purposes, and to be in habit, and ready, or already done
+      <code>kern.securelevel=1</code>! This will not be needed after
+      setup.</p></li>
+      <li><p>Always run the script from the repository base directory.
+      Do not go until <code>util</code> and run it from there.</p></li>
+      <li><p><code>Fn-K</code> allows to arrow and PgUp PgDown the
+      console screen. Then <code>Fn-K</code> again to release.</p></li>
+      <li><p>Make sure to "Configure this System"</p></li>
+      <li><p>Set the time, date, and say yes to UTC clock, set your
+      timezone.</p></li>
+      <li><p>Skip keyboard map, console font, and screen map</p></li>
+      <li><p>Add yourself as user during setup with permanent accurate
+      information</p>
+      <ul>
+      <li>Fill in the first 4 rows</li>
+      </ul></li>
+      <li><p>Do <strong>NOT</strong> "Configure network
+      interfaces"</p></li>
+      <li><p>Enter "Set Hostname/Domain"</p>
+      <ul>
+      <li>Hostname is your nickname, no special characters, not starting
+      with a number</li>
+      <li>Domain is <code>localhost</code></li>
+      <li>Return to Main Menu, Reboot This Computer</li>
+      <li>Do <strong>NOT</strong> pull out the installation USB drive
+      until "The operating system has halted"</li>
+      <li>Login as root, insert the FAT32 formatted USB drive with this
+      software.
+      <ul>
+      <li>You will not see a prompt, that's ok just type
+      <code>mount_msdos /dev/da8s1 /mnt</code></li>
+      </ul></li>
+      <li><code>cp -fR /mnt/harden-dragonflybsd ~</code></li>
+      <li><code>cd harden-dragonflybsd</code></li>
+      <li><code>util/thinkpad-t495-setup.csh</code> , after Success,
+      issue the <code>reboot</code> command</li>
+      <li>There are some pkg bugs in DF, if the software
+      <code>pkg</code> management systems asks to upgrade or fix missing
+      dependencies then select <code>y</code>
+      <ul>
+      <li>You may end up running the script twice after an error, this
+      is unfortunately expected</li>
+      </ul></li>
+      </ul></li>
+      <li><p><strong>Phase 2 setup</strong></p></li>
+      <li><p>When you see this message do the following before
+      rebooting:</p>
+      <ul>
+      <li>Run this command: <code>visudo</code></li>
+      <li>That will launch the VI editor. VI command for search is
+      <code>/</code></li>
+      <li>Type <code>/root ALL</code> &lt;enter|returrn key&gt;, then
+      type <code>o</code>, then we're going replicate the line above but
+      instead of using <code>root</code> we'll use the actual username
+      you made during setup</li>
+      <li><code>your-user-name ALL=(ALL:ALL) ALL</code></li>
+      <li>Quit and Write the changes at the same time by typing
+      <code>:x</code></li>
+      <li>Copy this software from root to your user
+      <ul>
+      <li><code>sudo cp -fR /root/harden-dragonflybsd /home/&lt;your-user-name&gt;</code></li>
+      <li><code>sudo chown -R &lt;your-user-name&gt; /home/&lt;your-user-name&gt;/harden-dragonflybsd</code></li>
+      </ul></li>
+      <li>Reboot, login with your username, not root, and re-run script
+      to continue setup</li>
+      <li>Run the script again from the repository base directory but
+      use <code>sudo</code>
+      <ul>
+      <li><code>sudo util/thinkpad-t495-setup.csh</code> Enter your
+      password, not the root password for sudo permissions.</li>
+      </ul></li>
+      <li>From now on you'll need to
+      <code>sudo util/thinkpad-t495-setup.csh</code>,
+      <code>sudo reboot</code> , <code>sudo shutdown -p now</code></li>
+      <li>If anything went wrong, just keep running the script!
+      <ul>
+      <li>Dragonfly has quirks in the <code>pkg</code> system in 6.4 and
+      it will sometimes conflict on openssl - libressl and sometimes
+      will delete everything that depends on them automatically! Do not
+      worry, just run the script again to fix this situation.</li>
+      </ul></li>
+      </ul></li>
+      </ul>
+      <h3 id="awesome-window-manger-awesomewm">Awesome Window Manger
+      (AwesomeWM)</h3>
+      <ul>
+      <li><p>Type <code>startx</code> to start your desktop</p>
+      <ul>
+      <li>Ignore the .Xauthority at first run, this is normal</li>
+      <li>Ignore the .serverauth file does not exist this is normal.
+      <ul>
+      <li>Delete them all regularly or change file
+      <code>/usr/local/bin/startx</code> directive to
+      0<code>enable_xauth=0</code></li>
+      </ul></li>
+      </ul></li>
+      <li><p>If you want to turn off beeps type
+      <code>xset b off</code></p></li>
+      <li><p>When the terminal starts type
+      <code>gsettings set io.elementary.terminal.settings font 'Monoid Nerd Font 12'</code>
+      to match the rest of the theme or whatever Nerd Font you'd
+      like.</p></li>
+      <li><p>Rarely, the trackpoint will get stuck, simply issue a
+      <code>reboot</code> command.</p></li>
+      <li><p>Windows Key on the keyboard is called the "Mod"
+      key</p></li>
+      <li><p>Quit a Window <code>Mod-Shift-C</code></p></li>
+      <li><p><code>Mod-R</code> Start any application, "Run" appears in
+      the top system bar, type the full path to the binary or simply the
+      app name if it's in system path already.</p></li>
+      <li><p>Terminal Command:
+      <code>io.elementary.terminal</code></p></li>
+      <li><p>Shutdown <code>shutdown -p now</code> command in
+      terminal</p></li>
+      <li><p>Crash Restart: <code>Mod-Shift-Q</code>,
+      <code>Ctrl-Alt-Backspace</code> wait 7 seconds,
+      <code>Ctrl-Alt-Delete</code></p></li>
+      </ul>
+      <h3 id="firefox-block">Firefox Block</h3>
+      <ul>
+      <li>For security and privacy, the network settings have been
+      changed to block the 110+ servers that Mozilla uses to track
+      browser activity.</li>
+      <li>It is recommended for the user the setup <a
+      href="https://my.nextdns.io/start">NextDNS</a> Security to remove
+      ads and malware, not uBlockOrigin.</li>
+      <li><strong>Settings required in the URL</strong>
+      <code>about:config</code> <strong>on first run!</strong></li>
+      <li>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</li>
+      <li><strong>&lt;&lt;&lt;Firefox will render itself inoperative if
+      you do not set these on first run!&gt;&gt;&gt;</strong></li>
+      <li>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+      <ul>
+      <li>dom.push.connection.enabled <code>false</code></li>
+      <li>dom.push.enabled <code>false</code></li>
+      <li>geo.enabled <code>false</code></li>
+      <li><em>(Extra)</em> intl.regional_prefs.use_os_locales
+      <code>true</code></li>
+      <li><em>(Extra)</em>
+      services.sync.prefs.sync.intl.regional._prefs.use_os_locates
+      <code>false</code></li>
+      </ul></li>
+      </ul>
+      <h3 id="system-tools">System Tools</h3>
+      <ul>
+      <li>Pre-Installed Languages
+      <ul>
+      <li><p>NPM + NodeJS</p></li>
+      <li><p>Rust</p></li>
+      <li><p>Luarocks</p></li>
+      </ul></li>
+      <li>Enhanced Command Lines Tools
+      <ul>
+      <li>Enhanced file and directory <a
+      href="https://github.com/sharkdp/fd">find</a> <code>fd</code>
+      <ul>
+      <li>Custom <code>alias</code> added to your <code>.zshrc</code> to
+      not ignore dot files</li>
+      <li><code>fd &lt;searchstring&gt; /</code> to search the whole
+      drive.</li>
+      </ul></li>
+      <li><a href="https://github.com/BurntSushi/ripgrep">Enhanced
+      grep</a> <code>rg</code>
+      <ul>
+      <li>Find text in files recursively in the current directory.
+      <code>rg &lt;searchstring&gt; /</code> to search the whole
+      drive.</li>
+      </ul></li>
+      </ul></li>
+      <li>Rust Language <code>$HOME/.cargo/bin</code> added to your user
+      <code>PATH</code></li>
+      <li><strong>Quadhelion Engineering Dragonfly Status
+      Dashboard</strong>
+      <ul>
+      <li>Just type <code>dfs</code> in your shell
+      <ul>
+      <li>WiFi Status</li>
+      <li>Current Internet IP Address sourced from the <a
+      href="https://envs.net/">envs.net</a></li>
+      <li>Current DNS Server</li>
+      <li>Power type, either from 120v power <em>adapter</em> or from
+      the laptop <em>battery</em></li>
+      <li>Battery percentage
+      <ul>
+      <li>Alerts with two system beeps and warning icon with less than
+      10%</li>
+      </ul></li>
+      <li>Current CPU Frequency taking into account sleep states,
+      powerd, AMD ACPI</li>
+      <li>Current average CPU temperate of all CPU cores
+      <ul>
+      <li>Alerts with two system beeps and warning icon when above
+      85%</li>
+      </ul></li>
+      <li>Current CPU utilization</li>
+      <li>Current free memory</li>
+      <li>Current used hard drive space</li>
+      </ul></li>
+      </ul></li>
+      </ul>
+      <h3 id="xorg">Xorg</h3>
+      <ul>
+      <li>There are logged errors for /dev/card0 and Screens not being
+      found.Tthis is normal for the Thinkpad external monitor drivers
+      are not supported</li>
+      <li>There are logged errors in system mouse. This is normal and
+      expected when the user disables either the trackpoint or the
+      trackpad in the BIOS.
+      <ul>
+      <li>If the mouse does not work in Awesome, then reboot, it happens
+      rarely, cause unknown.</li>
+      <li>Setup best for trackpoint</li>
+      </ul></li>
+      <li>There is rarely trackpoint/pad glitching especially when in a
+      new X session. This is just a glitch in Xorg with Trackpoints. All
+      settings were used to reduce this behavior and should only happen
+      very rarely.</li>
+      </ul>
+      <h3 id="ohmyzsh">OhMyZsh</h3>
+      <ul>
+      <li><p><code>omz help</code>,
+      <code>omz theme &lt;command&gt;</code></p></li>
+      <li><p>Edit <code>./zshrc</code> and uncommnet line 74,
+      <code>export LANG=en_US.UTF-8</code></p></li>
+      <li><p><code>git config oh-my-zsh.hide-status 1</code> for each
+      directory, like $HOME, you don't want the git display
+      prompt.</p></li>
+      <li><p>Create <code>fd</code> alias below the examples
+      <code>alias fd="fd -H"</code></p></li>
+      <li><p>There are uni-code characters present at the prompt when
+      running as root in the system console, this is normal as root
+      account need to the "C" locale and should <strong>not</strong> be
+      changed.</p></li>
+      <li><p>It may start creating .zcompdump files in your directory
+      because of missing paths used by <code>compinit</code> which you
+      can set to explain the dump by locating the below function in
+      <code>/usr/local/share/ohmyzsh</code>:</p>
+      <div class="sourceCode" id="cb1"><pre
+      class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">[[</span> <span class="st">&quot;</span><span class="va">$ZSH_DISABLE_COMPFIX</span><span class="st">&quot;</span> <span class="ot">!=</span> true <span class="kw">]]</span> <span class="cf">then</span></span></code></pre></div>
+      <p>and adding <code>-w</code> to all <code>compinit</code> flags
+      to debug or use <code>-D</code> instead of <code>-d</code> to
+      disable the .compdump. I found no adverse affects from disabling
+      the dump.</p></li>
+      </ul>
+      <h3 id="astronvim">AstroNvim <a
+      href="https://astronvim.com/">*</a></h3>
+      <ul>
+      <li>Use<code>nvim</code> command with no file to let it setup,
+      update, then quit <code>:q!</code></li>
+      <li>If Treesitter cloning error:
+      <ul>
+      <li><code>cd ~/.local/share/nvim/lazy/</code></li>
+      <li><code>rm -rf nvim-treesitter</code></li>
+      <li><code>git clone https://github.com/nvim-treesitter/nvim-treesitter.git</code></li>
+      </ul></li>
+      <li>The Dragonfly versions avaible to build with do not properly
+      render some of the Nerd Fonts.</li>
+      <li></li>
+      <li>Update <code>:AstroUpdatePackages</code></li>
+      <li>Add a language <code>:TSInstall ruby</code></li>
+      <li>Plug-In directory is<code>~/.local/share/nvim/lazy</code></li>
+      <li>Install new language <code>:TSInstall rust</code></li>
+      <li>Update <code>~/.config/nvim/lua/plugins/telescope.lua</code>
+      to change the <code>fzf</code> in
+      <code>telescope-fzf-native.nvim</code> to <code>fzy</code> instead
+      of <code>fzf</code> and the <code>vim.fn.executeable</code> from
+      <code>make</code> to <code>cmake</code> for both fields</li>
+      </ul>
+      <h3 id="irc-client">IRC Client</h3>
+      <ul>
+      <li>Of the dozens of clients available very few still work,
+      <code>irssi</code> and <code>iris-fish</code>(encryption module)
+      are tested as working</li>
+      </ul>
+      <h3 id="abiword">Abiword</h3>
+      <p>Abiword is useful for viewing Office docs, but it always saves
+      in it's own format <code>.abw</code>. You can always type in
+      Asciidoc or Markdown in NVIM, but if you need to convert your
+      Abiword files you can use https://cloudconvert.com/abw-converter
+      or https://www.vertopal.com/en/convert/abw-to-asciidoc for
+      free.</p>
+      <h3
+      id="quadhelion-engineering-markdown-preview-shell-function">Quadhelion
+      Engineering Markdown Preview Shell Function</h3>
+      <p>Preview Markdown files in as they would appear in GitHub (with
+      a QHE provided template) in Firefox with auto-generated Table of
+      Contents for faster review.</p>
+      <p><strong>Firefox may throw errors complaining that it cannot get
+      your precise location, ignore!</strong></p>
+      <p>Simply type <code>mdp</code> in your shell</p>
+      <p><strong>Usage:</strong> <code>mdp README.md</code></p>
+      <h4 id="customization">Customization</h4>
+      <p>Gives you an HTML copy of your markdown file as well. You can
+      have the <code>mdp</code> function remove this file by editing the
+      function.</p>
+      <p><strong>File</strong>: <code>~/.zshrc</code></p>
+      <p>Append the following line at the end of function to delete HTML
+      preview file: <code>rm ${filepath}/${basename_toc}.html</code></p>
+      <p>Append the following line at the end of function to delete
+      Markdown with Table of Contents file:
+      <code>rm ${filepath}/${filename_toc}</code></p>
+      <p><em>Firefox will automatically open file and show preview until
+      cache refreshed or tab/window despite file deletion.</em></p>
+      <h4 id="markdown-format">Markdown Format</h4>
+      <p>QHE <code>mdp</code> z shell function uses <a
+      href="https://fletcherpenney.net/multimarkdown/">MultiMarkdown
+      format</a> <code>markdown_mmd</code> which can be <a
+      href="https://pandoc.org/chunkedhtml-demo/8.22-markdown-variants.html#markdown-variants">changed</a>
+      although this format was heavily tested to be the best:</p>
+      <p><strong>Table of Contents Insertion and Format</strong>
+      <code>--maxdepth</code> is set to only recognize<code>##</code>
+      markdown headings <code>2</code> but the default is
+      <code>6</code>, all subheadings.</p>
+      <p>The Table of Contents is auto-inserted at the line after the
+      first single <code>#</code>, usually the main title of the
+      document. If you wish to insert the TOC yourself remove the
+      statement staring with <code>printf</code> and insert <!-- toc -->
+      inside your markdown document where you would like it to appear
+      before you run the <code>mdp</code> command</p>
+      <p>All changes in this function will not appear until you've
+      exited the terminal and restarted it</p>
+      <p>The pandoc custom template by Quadhelion Engineering and <a
+      href="https://www.fabriziomusacchio.com">Fabrizio Musacchio</a>
+      mimicing GitHub Markdown can be modified however you wish.</p>
+      <ul>
+      <li>/usr/local/share/pandoc/data/templates/qhe-markdown.html</li>
+      </ul>
+
+    </body>
+
+</html>

@@ -318,7 +318,7 @@ chown -R $SUDO_USER $SUDO_USER_HOME/.local
 chmod 750 $SUDO_USER_HOME/.xinitrc
 chmod -R 740 $SUDO_USER_HOME/harden-dragonflybsd
 chmod 750 $SUDO_USER_HOME/dfs.sh
-gsettings set io.elementary.terminal.settings font 'Monoid Nerd Font 12'
+/usr/bin/gsettings set io.elementary.terminal.settings font 'Monoid Nerd Font 12'
 
 
 # Pkg system clean
