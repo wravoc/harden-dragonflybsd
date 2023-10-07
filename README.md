@@ -17,6 +17,7 @@ Each of the security settings was researched, assessed, and chosen as a set of m
 
 ## Main Features
 
+* Sets kernel, network, and file system mitigations
 * Makes backups of `rc.conf`, `sysctl.conf`, `login.conf`, and `loader.conf` on first run
 * Sets passwords to blowfish encryption
 * Sets passwords to expire at 120 days
