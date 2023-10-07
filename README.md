@@ -34,16 +34,18 @@ Each of the security settings was researched, assessed, and chosen as a set of m
 
 ---
 
-
 ## Includes
+
 * Desktop Wallpapers as a special gift to users of the Software
 * Directory (Hier)archy Visual Map, PDF, in /docs
 
 
 ---
 
+<!--toc--> 
 
 ## New Features in 3.0.1
+
 * ZenBleed Workaround
 * CPU microcode updating enabled in anticipation of Zenbleed and Downfall Patches
 
