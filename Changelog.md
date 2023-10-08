@@ -1,3 +1,9 @@
+## October 7, 2023
+* Added Thinpad T495 Configuration script
+* Added a Custom Desktop Theme
+* `cap_mdkb` the login.conf change moved to settings.ini
+* Added pkg-audit to the end of hardening
+
 ## August 22, 2023
 * Removed devcpu-data-amd as the re-worked port installs both AMD and Intel with command `devcpu-data`
     * https://cgit.freebsd.org/ports/commit/?id=bc7829212d153aeff69b439d08e2e3001ef88ba3
