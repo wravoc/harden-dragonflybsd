@@ -87,7 +87,6 @@ Each of the security settings was researched, assessed, and chosen as a set of m
 
 
 ## Zenbleed Workaround
-* *I could only do very limited testing on VM's, please submit issues!*
 * [Security Engineer's Discovery & Write-Up](https://lock.cmpxchg8b.com/zenbleed.html)
 * [Affects AMD Zen 2 Chipset Family](https://nakedsecurity.sophos.com/2023/07/26/zenbleed-how-the-quest-for-cpu-performance-could-put-your-passwords-at-risk/)
 * Mitigation/workaround suggested by discovering Security Engineer **will not work in Virtual Machines**
@@ -302,7 +301,7 @@ Although this script is using `subprocess.run(shell=True)` the only possibility 
 
 ### Latest Development Version
 
-[Quadhelion Engineering Code Repository](https://got.quadhelion.engineering)
+[Quadhelion Engineering Code Repository](https://quadhelion.dev)
 
 
 
