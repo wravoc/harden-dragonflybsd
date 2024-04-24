@@ -54,6 +54,7 @@ See the docs folder [manual](docs/qhe-dragonfly-desktop-manual.md) for the list 
 * Automate any shell script
 * System Logging to `/var/log/messages` and Script Logging to `/var/log/harden-dragonflybsd.log`
 * Pretty prints color output of script execution to console while running
+* Sets umask to 27
 
 ---
 
