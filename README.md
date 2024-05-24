@@ -66,6 +66,9 @@ See the docs folder [manual](docs/qhe-dragonfly-desktop-manual.md) for the list 
 
 ---
 
+## Dragonfly BSD Security Advisory 05/23/20204
+* LogoFAIL has finally been patched 04/22/2024 and tested as working by Quadhelion Engineering 05/22/2024. Lenovo Bootable CD BIOS Patch [here](https://pcsupport.lenovo.com/us/en/products/laptops-and-netbooks/thinkpad-t-series-laptops/thinkpad-t495-type-20nj-20nk/downloads/driver-list/component?name=Diagnostic&id=B39ECAD7-69BC-4CC0-B8C7-25D5553C5887)
+
 
 ## New Features in 3.0.1
 * ZenBleed Workaround
