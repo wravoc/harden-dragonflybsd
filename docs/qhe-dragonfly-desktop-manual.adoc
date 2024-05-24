@@ -17,6 +17,8 @@ Engineering Markdown Preview Shell Function]
 
 * If the Dragonfly pkg manager ever asks to delete everything and
 install libressl say No!
+* Download the [Lenovo UEFI Linux Diagnostic Tool](https://pcsupport.lenovo.com/us/en/products/laptops-and-netbooks/thinkpad-t-series-laptops/thinkpad-t495-type-20nj-20nk/downloads/driver-list/component?name=Diagnostic&id=B39ECAD7-69BC-4CC0-B8C7-25D5553C5887) and run all the diagnostics on your laptop before install. Not only will it save installation issues, you know all the hardware firmware versions and includes tools such as SMART SSD Health, Fan Speed Reporting, WiFi assessement, and logging it all out for your records. 
+** You can use the performance testing results obtained in the bootable USB above as a baseline against Dragonfly BSD performance, or whatever OS you keep.
 * You need two FAT32 formatted USB drives, one for the install, the
 other for this software
 ** You can use BalenaEtcher to make your install drive
