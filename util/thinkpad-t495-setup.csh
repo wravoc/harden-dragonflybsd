@@ -123,32 +123,14 @@ else
 endif
 
 
-printf "\n*********************$blue Fix pkg bug $end*********************\n"
-printf "Answer y[yes] to all \n"
-printf "*******************************************************\n\n"
-pkg update
-sleep 2
-pkg install -y vim
-sleep 2
-pkg update
-printf "\n********************$blue Reseting Repo $end********************\n"
-printf "*******************************************************\n\n"
-cp /usr/local/etc/pkg/repos/df-latest.conf.sample /usr/local/etc/pkg/repos/df-latest.conf
-echo
-pkg update
-echo
-printf "\n*********************$blue Repo Reset $end**********************\n"
-printf "*******************************************************\n\n"
-pkg upgrade -f openssl
-pkg install -y wget sudo python 
-pkg upgrade -f openssl
+pkg install -y wget sudo curl python
 set wget_check = `pkg info wget | grep -m1 Name | awk '{ print $3 }'`
 echo
 echo
 sleep 1
 if ( $wget_check == "wget" ) then
     printf "\n**********************$green Success $end***********************\n"
-    printf "Package system fixed\n"
+    printf "Package system engaged\n"
     printf "      $magenta PHASE 2 $end\n"
     printf "Two things must be done here and now\n"
     printf "1. You must allow your real user account to sudo\n"

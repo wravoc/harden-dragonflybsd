@@ -335,5 +335,5 @@ Although this script is using `subprocess.run(shell=True)` the only possibility 
 
 
 
-![quadhelion engineering logo](images/quadhelionEngineeringIcon.jpg)
+![quadhelion engineering logo](images/qhe-logo-hyper-greeble-300.png)
 
